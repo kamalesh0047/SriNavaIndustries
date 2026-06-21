@@ -173,11 +173,6 @@ export function WorkPage() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Subtle glow on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-                style={{ background: "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%)" }}
-              />
-
               <div
                 className="text-white/20 mb-5 group-hover:text-white/40 transition-colors duration-300"
                 style={{ fontSize: "1.6rem" }}
