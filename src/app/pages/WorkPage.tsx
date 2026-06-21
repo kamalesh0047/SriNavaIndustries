@@ -14,7 +14,7 @@ const machines = [
     desc: "Precision cuts up to 25mm thick steel with ±0.1mm tolerance.",
   },
   {
-    name: "Bending Machine",
+    name: "Machinaries",
     icon: "⌒",
     desc: "CNC press brake for complex profiles and high-volume bends.",
   },
