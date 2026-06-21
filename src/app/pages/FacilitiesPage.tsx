@@ -375,29 +375,6 @@ export function FacilitiesPage() {
         </>
       )}
 
-      {/* Facilities Grid */}
-      <div className="px-8 md:px-16 lg:px-24 py-24">
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-white/40" />
-            <span className="text-white/40 uppercase" style={{ fontSize: "0.7rem", letterSpacing: "0.25em", fontWeight: 500 }}>
-              Our Spaces
-            </span>
-          </div>
-          <h2
-            className="text-white"
-            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}
-          >
-            Facilities Overview
-          </h2>
-        </motion.div>
-      </div>
 
     </div>
   );
