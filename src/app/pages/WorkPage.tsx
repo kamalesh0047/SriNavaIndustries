@@ -65,9 +65,13 @@ export function WorkPage() {
             OVISION
           </button>
           <div className="flex items-center gap-8">
-            {["Work", "About", "Contact"].map((item) => (
+            {["Work", "Facilities", "Team", "About", "Contact"].map((item) => (
               <button
                 key={item}
+                onClick={() => {
+                  if (item === "Facilities") navigate("/facilities");
+                  else if (item === "Team") navigate("/team");
+                }}
                 className={`bg-transparent border-none cursor-pointer transition-colors duration-200 ${item === "Work" ? "text-white" : "text-white/40 hover:text-white"}`}
                 style={{ fontSize: "0.8rem", letterSpacing: "0.1em" }}
               >
