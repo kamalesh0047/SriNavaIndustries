@@ -34,6 +34,16 @@ const machines = [
         img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F64365b5c7ba04d77b95a9d95d2631353?format=webp&width=800&height=1200",
         desc: "Our Horizontal Metal Cutting Bandsaw Machine provides precise and efficient cutting of pipes, tubes, solid bars, and structural steel sections. Equipped with a hydraulic feed system and heavy-duty clamping mechanism, the machine ensures accurate cuts, improved productivity, and reduced material wastage, making it an essential part of our fabrication and manufacturing operations.",
       },
+      {
+        name: "Flange Rolling Machine",
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F31d50fec31c44e6b9e768f8c0f1688e5?format=webp&width=800&height=1200",
+        desc: "Our custom-built Flange Rolling Machine is engineered for precise rolling of flat bars up to 100 mm width into circular rings and flanges. Featuring a robust gear-driven 3-roller mechanism and heavy-duty steel construction, the machine is ideal for manufacturing tank flanges, support rings, structural components, and custom fabrication assemblies with high accuracy and consistency.",
+      },
+      {
+        name: "3-Roller Plate Rolling Machine",
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F330c9784799d4320b7ad9359b95c5a7d?format=webp&width=800&height=1200",
+        desc: "Our custom-built 3-Roller Plate Rolling Machine is designed for precision rolling of metal plates up to 16 mm thickness and 1500 mm width. Powered by a 3 HP gear-driven transmission system, the machine enables efficient fabrication of cylindrical shells, storage tanks, ducts, and structural components. Its heavy-duty construction ensures reliable performance for demanding industrial applications.",
+      },
     ],
   },
   {
