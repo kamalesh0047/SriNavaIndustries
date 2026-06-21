@@ -23,6 +23,11 @@ const machines = [
     icon: "⊤",
     desc: "20-tonne overhead crane for safe heavy-load handling.",
   },
+  {
+    name: "Welding",
+    icon: "⚡",
+    desc: "Advanced welding systems for structural steel and precision joints.",
+  },
 ];
 
 const facilities = [];
