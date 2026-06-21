@@ -30,36 +30,7 @@ const machines = [
   },
 ];
 
-const facilities = [
-  {
-    img: img1,
-    title: "Production Studio",
-    tag: "Creative Hub",
-    desc: "Our flagship production studio is equipped with industry-leading tools and technology. Designed for both large-scale shoots and intimate creative sessions, it's where ideas take their first physical form.",
-    more: "Spanning over 2,400 sq ft, the studio features a fully rigged overhead lighting grid, cyclorama wall, soundproofed recording booth, and a green screen bay. We accommodate everything from editorial fashion to full commercial productions — backed by our in-house art department and a wardrobe room stocked for any brief.",
-  },
-  {
-    img: img2,
-    title: "Innovation Lab",
-    tag: "R&D Space",
-    desc: "A dedicated space for experimentation and rapid prototyping. Our team pushes the limits of visual storytelling here — testing new formats, materials, and techniques before they hit the market.",
-    more: "The lab runs on a 48-hour prototype cycle. Ideas pitched on Monday are stress-tested with real audiences by Wednesday. We've developed proprietary motion-capture rigs, custom LED installations, and real-time rendering pipelines that have since been rolled into full client campaigns. If it hasn't been tried before, this is where we try it.",
-  },
-  {
-    img: img3,
-    title: "Collaboration Lounge",
-    tag: "Team Space",
-    desc: "Built for open thinking. The collaboration lounge brings clients, directors, and creators together in a relaxed setting that sparks honest conversation and breakthrough ideas.",
-    more: "Designed by an award-winning interior studio, the lounge seats up to 20 and is equipped with modular whiteboards, dual projection screens, and a connected audio system. We host weekly creative roundtables here, open to clients, freelancers, and partners. Some of our most celebrated campaigns were born in casual conversations in this room.",
-  },
-  {
-    img: img4,
-    title: "Post-Production Suite",
-    tag: "Finishing Room",
-    desc: "Colour grading, sound design, and final delivery — all under one roof. Our post-production suite runs around the clock to meet even the tightest deadlines without compromising quality.",
-    more: "The suite runs DaVinci Resolve on a dedicated GPU cluster, paired with a Dolby Atmos–certified monitoring room for audio finishing. Our colourists work to P3 and HDR standards for both broadcast and cinema deliverables. Remote client review sessions are supported via frame.io integration, so approvals happen fast — wherever you are in the world.",
-  },
-];
+const facilities = [];
 
 export function WorkPage() {
   const navigate = useNavigate();
