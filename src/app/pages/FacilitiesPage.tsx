@@ -399,29 +399,6 @@ export function FacilitiesPage() {
         </motion.div>
       </div>
 
-      {/* Footer CTA */}
-      <div className="px-8 md:px-16 lg:px-24 pb-24">
-        <motion.div
-          className="border-t border-white/10 pt-16 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-white/60 mb-2" style={{ fontSize: "1.1rem", fontWeight: 500 }}>
-            Ready to experience our facilities?
-          </p>
-          <p className="text-white/30 mb-8" style={{ fontSize: "0.95rem" }}>
-            Schedule a tour or discuss your project requirements with our team.
-          </p>
-          <button
-            className="px-8 py-3.5 border border-white/20 text-white/70 hover:border-white/50 hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer bg-transparent"
-            style={{ fontSize: "0.8rem", letterSpacing: "0.06em" }}
-          >
-            Schedule a Tour
-          </button>
-        </motion.div>
-      </div>
     </div>
   );
 }
