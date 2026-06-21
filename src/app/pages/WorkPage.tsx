@@ -57,7 +57,7 @@ export function WorkPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 ml-auto">
             {["Work", "Facilities", "Team", "About", "Contact"].map((item) => (
               <button
                 key={item}
