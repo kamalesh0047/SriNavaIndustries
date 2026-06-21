@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import headerImg from "../../imports/wmremove-transformed.png";
 import img1 from "../../imports/WhatsApp_Image_2026-06-21_at_10.21.12.jpeg";
 import img2 from "../../imports/sgsfbr.jpeg";
@@ -36,7 +35,6 @@ const facilities = [];
 
 export function WorkPage() {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
@@ -174,56 +172,25 @@ export function WorkPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => setExpanded(expanded === i ? null : i)}
+              onClick={() => navigate(`/work/machinery/${m.name}`)}
             >
-              {expanded === i && m.img && (
-                <>
-                  <div className="relative overflow-hidden mb-4" style={{ aspectRatio: "16/10" }}>
-                    <img
-                      src={m.img}
-                      alt={m.name}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
-                  <AnimatePresence>
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="border-t border-white/10 pt-4">
-                        <p className="text-white/35" style={{ fontSize: "0.85rem", lineHeight: 1.75 }}>
-                          {m.more}
-                        </p>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </>
-              )}
+              <div
+                className="text-white/20 mb-5 group-hover:text-white/40 transition-colors duration-300"
+                style={{ fontSize: "1.6rem" }}
+              >
+                {m.icon}
+              </div>
 
-              {expanded !== i && (
-                <>
-                  <div
-                    className="text-white/20 mb-5 group-hover:text-white/40 transition-colors duration-300"
-                    style={{ fontSize: "1.6rem" }}
-                  >
-                    {m.icon}
-                  </div>
+              <h3
+                className="text-white mb-2"
+                style={{ fontSize: "0.95rem", fontWeight: 600, letterSpacing: "-0.01em" }}
+              >
+                {m.name}
+              </h3>
 
-                  <h3
-                    className="text-white mb-2"
-                    style={{ fontSize: "0.95rem", fontWeight: 600, letterSpacing: "-0.01em" }}
-                  >
-                    {m.name}
-                  </h3>
-
-                  <p className="text-white/35 group-hover:text-white/50 transition-colors duration-300" style={{ fontSize: "0.78rem", lineHeight: 1.65 }}>
-                    {m.desc}
-                  </p>
-                </>
-              )}
+              <p className="text-white/35 group-hover:text-white/50 transition-colors duration-300" style={{ fontSize: "0.78rem", lineHeight: 1.65 }}>
+                {m.desc}
+              </p>
 
               {/* Bottom accent line */}
               <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
