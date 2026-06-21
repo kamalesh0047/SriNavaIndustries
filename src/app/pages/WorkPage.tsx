@@ -141,55 +141,56 @@ export function WorkPage() {
       </div>
 
       {/* ── Machine Boxes ─────────────────────────────────────── */}
-      <div className="px-8 md:px-16 lg:px-24 py-20">
+      <div className="px-8 md:px-16 lg:px-24 py-24">
         <motion.div
-          className="mb-10"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-6 h-px bg-white/30" />
-            <span className="text-white/35 uppercase" style={{ fontSize: "0.65rem", letterSpacing: "0.25em" }}>
-              Equipment
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-px bg-white/40" />
+            <span className="text-white/40 uppercase" style={{ fontSize: "0.7rem", letterSpacing: "0.25em", fontWeight: 500 }}>
+              Equipment & Technology
             </span>
           </div>
           <h2
             className="text-white"
-            style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)", fontWeight: 600, letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}
           >
             Our Machinery
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
           {machines.map((m, i) => (
             <motion.div
               key={m.name}
-              className="group relative border border-white/8 bg-white/4 p-6 hover:border-white/20 hover:bg-white/7 transition-all duration-300 cursor-pointer overflow-hidden"
+              className="group relative border border-white/15 bg-white/5 p-8 hover:border-white/30 hover:bg-white/8 transition-all duration-300 cursor-pointer overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => navigate(`/work/machinery/${m.name}`)}
+              style={{ minHeight: "200px", display: "flex", flexDirection: "column", justifyContent: "center" }}
             >
               <div
-                className="text-white/20 mb-5 group-hover:text-white/40 transition-colors duration-300"
-                style={{ fontSize: "1.6rem" }}
+                className="text-white/30 mb-6 group-hover:text-white/50 transition-colors duration-300"
+                style={{ fontSize: "2.5rem" }}
               >
                 {m.icon}
               </div>
 
               <h3
-                className="text-white mb-2"
-                style={{ fontSize: "0.95rem", fontWeight: 600, letterSpacing: "-0.01em" }}
+                className="text-white"
+                style={{ fontSize: "1.25rem", fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}
               >
                 {m.name}
               </h3>
 
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>
