@@ -584,31 +584,61 @@ export function AboutPage() {
 
             .about-content-section {
               padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
-              border-top: 1px solid rgba(255, 255, 255, 0.08);
+              position: relative;
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.06) 0%, rgba(13, 14, 17, 0.3) 100%);
+              border: 1px solid var(--line);
+              border-radius: 12px;
+              margin: 1.5rem 0;
+              transition: all 0.3s ease;
+            }
+
+            .about-content-section::before {
+              content: '';
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(ellipse at 50% -10%, rgba(225, 29, 46, 0.12) 0%, transparent 50%);
+              pointer-events: none;
+              border-radius: 12px;
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+
+            .about-content-section:hover {
+              border-color: var(--crimson-soft);
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.1) 0%, rgba(13, 14, 17, 0.4) 100%);
+            }
+
+            .about-content-section:hover::before {
+              opacity: 1;
             }
 
             .about-content-section:first-of-type {
               border-top: none;
+              margin-top: 0;
             }
 
             .about-content-section:nth-of-type(4) {
-              position: relative;
-              background: linear-gradient(135deg, rgba(225, 29, 46, 0.08) 0%, rgba(13, 14, 17, 0.4) 100%);
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.12) 0%, rgba(13, 14, 17, 0.5) 100%);
               border: 1px solid var(--crimson-soft);
-              border-radius: 12px;
-              margin: 2rem 0;
             }
 
             .about-content-section:nth-of-type(4)::before {
-              content: '';
-              position: absolute;
-              inset: 0;
-              background: radial-gradient(ellipse at 50% 0%, rgba(225, 29, 46, 0.2) 0%, transparent 60%);
-              pointer-events: none;
-              border-radius: 12px;
+              background: radial-gradient(ellipse at 50% 0%, rgba(225, 29, 46, 0.25) 0%, transparent 60%);
+              opacity: 1;
             }
 
-            .about-content-section:nth-of-type(4) .section-title {
+            .about-content-section:nth-of-type(5) {
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.12) 0%, rgba(13, 14, 17, 0.5) 100%);
+              border: 1px solid var(--crimson-soft);
+            }
+
+            .about-content-section:nth-of-type(5)::before {
+              background: radial-gradient(ellipse at 50% 0%, rgba(225, 29, 46, 0.25) 0%, transparent 60%);
+              opacity: 1;
+            }
+
+            .about-content-section:nth-of-type(4) .section-title,
+            .about-content-section:nth-of-type(5) .section-title {
               font-size: clamp(1.6rem, 4.5vw, 2.4rem);
               font-weight: 800;
               background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, var(--crimson-bright) 100%);
@@ -647,7 +677,20 @@ export function AboutPage() {
             .history-paragraph {
               font-size: 1.05rem;
               line-height: 1.8;
-              color: rgba(255, 255, 255, 0.65);
+              color: rgba(255, 255, 255, 0.75);
+              position: relative;
+              padding-left: 1.5rem;
+            }
+
+            .history-paragraph::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 3px;
+              background: linear-gradient(180deg, var(--crimson-bright) 0%, transparent 100%);
+              border-radius: 2px;
             }
 
             .industries-grid {
@@ -655,6 +698,18 @@ export function AboutPage() {
               grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
               gap: 1.5rem;
               max-width: 1200px;
+              position: relative;
+            }
+
+            .industries-grid::before {
+              content: '';
+              position: absolute;
+              inset: -2rem;
+              background: radial-gradient(ellipse at 50% 20%, rgba(225, 29, 46, 0.15) 0%, transparent 50%);
+              pointer-events: none;
+              z-index: -1;
+              border-radius: 12px;
+              filter: blur(30px);
             }
 
             .industry-card {
@@ -833,51 +888,101 @@ export function AboutPage() {
               grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
               gap: 1rem;
               max-width: 900px;
+              position: relative;
+            }
+
+            .clients-grid::before {
+              content: '';
+              position: absolute;
+              inset: -2rem;
+              background: radial-gradient(ellipse at 50% 20%, rgba(225, 29, 46, 0.15) 0%, transparent 50%);
+              pointer-events: none;
+              z-index: -1;
+              border-radius: 12px;
+              filter: blur(30px);
             }
 
             .client-card {
               padding: 1.25rem;
-              border: 1px solid var(--line);
+              border: 1px solid var(--crimson-soft);
               border-radius: 8px;
-              background: rgba(255, 255, 255, 0.025);
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.1) 0%, rgba(13, 14, 17, 0.3) 100%);
               text-align: center;
-              transition: all 0.3s ease;
+              transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
               cursor: default;
+              position: relative;
+              overflow: hidden;
+            }
+
+            .client-card::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, var(--crimson-bright) 0%, transparent 100%);
+              opacity: 0;
+              transition: opacity 0.3s ease;
             }
 
             .client-card:hover {
-              border-color: var(--crimson-soft);
-              background: rgba(225, 29, 46, 0.08);
-              transform: translateY(-2px);
-              box-shadow: 0 4px 16px rgba(225, 29, 46, 0.15);
+              border-color: var(--crimson-bright);
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.18) 0%, rgba(13, 14, 17, 0.4) 100%);
+              transform: translateY(-4px);
+              box-shadow: 0 0 25px rgba(225, 29, 46, 0.3), 0 8px 20px rgba(225, 29, 46, 0.2);
+            }
+
+            .client-card:hover::before {
+              opacity: 1;
             }
 
             .client-name {
               font-size: 0.95rem;
-              font-weight: 500;
-              color: rgba(255, 255, 255, 0.8);
+              font-weight: 600;
+              background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, var(--crimson-bright) 100%);
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
               letter-spacing: 0.3px;
+              position: relative;
+              z-index: 1;
             }
 
             .cta-section {
               padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 3rem);
               text-align: center;
-              border-top: 1px solid rgba(255, 255, 255, 0.08);
+              border-top: 1px solid var(--crimson-soft);
+              position: relative;
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.08) 0%, rgba(13, 14, 17, 0.3) 100%);
+              margin-top: 2rem;
+              border-radius: 12px;
+            }
+
+            .cta-section::before {
+              content: '';
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(ellipse at 50% 0%, rgba(225, 29, 46, 0.15) 0%, transparent 60%);
+              pointer-events: none;
+              border-radius: 12px;
             }
 
             .cta-button {
               padding: 1rem 2.5rem;
               font-size: 0.9rem;
-              font-weight: 600;
+              font-weight: 700;
               letter-spacing: 0.08em;
               color: white;
-              background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 0%, rgba(231, 76, 60, 0.05) 100%);
-              border: 1.5px solid rgba(231, 76, 60, 0.4);
+              background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-deep) 100%);
+              border: 1.5px solid var(--crimson-bright);
               border-radius: 8px;
               cursor: pointer;
-              transition: all 0.3s ease;
+              transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
               position: relative;
               overflow: hidden;
+              z-index: 1;
+              box-shadow: 0 0 20px rgba(225, 29, 46, 0.3);
             }
 
             .cta-button::before {
@@ -887,15 +992,15 @@ export function AboutPage() {
               left: -100%;
               width: 100%;
               height: 100%;
-              background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-              transition: left 0.5s ease;
+              background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+              transition: left 0.6s ease;
             }
 
             .cta-button:hover {
-              border-color: rgba(231, 76, 60, 0.8);
-              box-shadow: 0 0 30px rgba(231, 76, 60, 0.2);
-              transform: translateY(-2px);
-              background: linear-gradient(135deg, rgba(231, 76, 60, 0.25) 0%, rgba(231, 76, 60, 0.08) 100%);
+              border-color: var(--crimson-bright);
+              box-shadow: 0 0 40px rgba(225, 29, 46, 0.5), 0 12px 30px rgba(225, 29, 46, 0.35);
+              transform: translateY(-3px) scale(1.02);
+              background: linear-gradient(135deg, var(--crimson-bright) 0%, var(--crimson) 100%);
             }
 
             .cta-button:hover::before {
