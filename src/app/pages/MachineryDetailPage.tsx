@@ -58,6 +58,12 @@ const machines = [
     desc: "20-tonne overhead crane for safe heavy-load handling.",
     img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F6241501ca2034cd9a5ce55e8a872091b?format=webp&width=800&height=1200",
     more: "Sri Nava Industries is equipped with a 2 Ton Material Handling Crane capable of transporting raw materials, fabricated assemblies, and finished products throughout the facility. The crane enables safe, efficient, and seamless movement of heavy components, improving productivity and supporting large-scale fabrication operations.",
+    additionalImages: [
+      {
+        img: "https://cdn.builder.io/api/v1/image/assets%2Ffc9c51b5c7bb434bb02302d7c203af2b%2F0f0b000e1b5741b29644e97b3a710a7b?format=webp&width=800&height=1200",
+        description: "Sri Nava Industries is equipped with a 2 Ton Material Handling Crane that operates throughout the entire facility, enabling the safe and efficient movement of heavy raw materials, fabricated components, and finished assemblies. This capability allows us to undertake heavy-duty and complex fabrication projects while ensuring improved productivity, precision, and workplace safety. The crane plays a vital role in supporting large-scale manufacturing, assembly, and material handling operations across our workshop.",
+      },
+    ],
   },
   {
     name: "Welding",
