@@ -191,29 +191,40 @@ export function WorkPage() {
           {machines.map((m, i) => (
             <motion.div
               key={m.name}
-              className="group relative border border-red-500/20 bg-gradient-to-br from-red-500/5 to-red-500/0 p-8 hover:border-red-500/60 hover:bg-red-500/8 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 cursor-pointer overflow-hidden rounded-sm"
+              className="group relative border border-red-500/20 bg-gradient-to-br from-red-500/5 to-red-500/0 p-8 hover:border-red-500/60 hover:bg-red-500/8 hover:shadow-lg hover:shadow-red-500/10 cursor-pointer overflow-hidden rounded-sm"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => navigate(`/work/machinery/${encodeURIComponent(m.name)}`)}
               style={{ minHeight: "200px", display: "flex", flexDirection: "column", justifyContent: "center" }}
             >
-              <div
+              <motion.div
                 className="text-red-500/40 mb-6 group-hover:text-red-400 transition-colors duration-300"
                 style={{ fontSize: "2.5rem" }}
+                whileHover={{ rotate: 15, scale: 1.15 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {m.icon}
-              </div>
+              </motion.div>
 
-              <h3
+              <motion.h3
                 className="text-white"
                 style={{ fontSize: "1.25rem", fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3 }}
               >
                 {m.name}
-              </h3>
+              </motion.h3>
 
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500/0 via-red-500/60 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500/0 via-red-500/60 to-red-500/0"
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileHover={{ scaleX: 1, opacity: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{ originX: 0.5 }}
+              />
             </motion.div>
           ))}
         </div>
