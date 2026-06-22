@@ -76,7 +76,7 @@ export function HomePage() {
         <h1
           className="leading-none mb-8 select-none"
           style={{
-            fontSize: "clamp(2.75rem, 6vw, 5.25rem)",
+            fontSize: "clamp(2rem, 5vw, 4.5rem)",
             fontWeight: 800,
             letterSpacing: "-0.025em",
             lineHeight: 1.04,
@@ -84,7 +84,7 @@ export function HomePage() {
           }}
         >
           {headlineLines.map((line, lineIndex) => (
-            <span key={line} className="relative block overflow-hidden py-[0.08em] whitespace-nowrap">
+            <span key={line} className="relative block overflow-hidden py-[0.08em]">
               {/* The text, masked from below as the "cut" passes */}
               <motion.span
                 className="relative block"
