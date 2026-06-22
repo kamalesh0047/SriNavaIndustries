@@ -679,14 +679,26 @@ export function AboutPage() {
               grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
               gap: 2rem;
               max-width: 1200px;
+              position: relative;
+            }
+
+            .expertise-section::before {
+              content: '';
+              position: absolute;
+              inset: -1.5rem;
+              background: radial-gradient(ellipse at 20% 50%, rgba(225, 29, 46, 0.15) 0%, transparent 50%);
+              pointer-events: none;
+              z-index: -1;
+              border-radius: 12px;
+              filter: blur(30px);
             }
 
             .expertise-category {
               padding: 2rem;
-              border: 1px solid var(--line);
+              border: 1px solid var(--crimson-soft);
               border-radius: 8px;
-              background: linear-gradient(135deg, rgba(225, 29, 46, 0.08) 0%, rgba(13, 14, 17, 0.5) 100%);
-              transition: all 0.3s ease;
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.12) 0%, rgba(13, 14, 17, 0.6) 100%);
+              transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
               position: relative;
               overflow: hidden;
             }
@@ -697,9 +709,9 @@ export function AboutPage() {
               top: 0;
               left: 0;
               right: 0;
-              height: 3px;
-              background: linear-gradient(90deg, var(--crimson-bright) 0%, transparent 100%);
-              opacity: 0.6;
+              height: 2px;
+              background: linear-gradient(90deg, var(--crimson-bright) 0%, var(--crimson) 50%, transparent 100%);
+              opacity: 1;
             }
 
             .expertise-category::after {
@@ -707,23 +719,26 @@ export function AboutPage() {
               position: absolute;
               top: 0;
               left: 0;
-              right: 0;
-              bottom: 0;
-              background: linear-gradient(135deg, transparent 0%, rgba(225, 29, 46, 0.03) 100%);
+              width: 3px;
+              height: 100%;
+              background: linear-gradient(180deg, var(--crimson-bright) 0%, var(--crimson) 50%, transparent 100%);
               pointer-events: none;
             }
 
             .expertise-category:hover {
-              border-color: var(--crimson-soft);
-              background: linear-gradient(135deg, rgba(225, 29, 46, 0.14) 0%, rgba(13, 14, 17, 0.65) 100%);
-              transform: translateY(-4px);
-              box-shadow: 0 12px 40px rgba(225, 29, 46, 0.2);
+              border-color: var(--crimson-bright);
+              background: linear-gradient(135deg, rgba(225, 29, 46, 0.22) 0%, rgba(13, 14, 17, 0.7) 100%);
+              transform: translateY(-6px) translateX(2px);
+              box-shadow: 0 0 30px rgba(225, 29, 46, 0.3), 0 16px 50px rgba(225, 29, 46, 0.25);
             }
 
             .expertise-title {
               font-size: 1.2rem;
-              font-weight: 600;
-              color: white;
+              font-weight: 700;
+              background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 51, 64, 0.9) 100%);
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
               margin-bottom: 1.5rem;
               letter-spacing: 0.5px;
               position: relative;
@@ -736,7 +751,8 @@ export function AboutPage() {
             .expertise-title::before {
               content: '◆';
               color: var(--crimson-bright);
-              font-size: 0.8rem;
+              font-size: 0.85rem;
+              -webkit-text-fill-color: var(--crimson-bright);
             }
 
             .expertise-list {
@@ -748,30 +764,33 @@ export function AboutPage() {
             }
 
             .expertise-item {
-              font-size: 0.9rem;
-              line-height: 1.6;
-              color: rgba(255, 255, 255, 0.7);
+              font-size: 0.95rem;
+              line-height: 1.7;
+              color: rgba(255, 255, 255, 0.8);
               display: flex;
               align-items: flex-start;
-              gap: 0.65rem;
-              transition: color 0.3s ease;
+              gap: 0.75rem;
+              transition: all 0.3s ease;
+              padding: 0.4rem 0;
             }
 
             .expertise-category:hover .expertise-item {
-              color: rgba(255, 255, 255, 0.85);
+              color: rgba(255, 255, 255, 0.95);
+              transform: translateX(4px);
             }
 
             .expertise-item::before {
               content: '→';
-              color: var(--crimson-soft);
-              font-weight: 600;
+              color: var(--crimson);
+              font-weight: 700;
               flex-shrink: 0;
               margin-top: 2px;
-              transition: color 0.3s ease;
+              transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             }
 
             .expertise-category:hover .expertise-item::before {
               color: var(--crimson-bright);
+              transform: translateX(4px);
             }
 
             @media (max-width: 768px) {
