@@ -558,6 +558,28 @@ export function AboutPage() {
             .about-header {
               padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
               max-width: 100%;
+              position: relative;
+              overflow: hidden;
+            }
+
+            .about-header::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, transparent, #d32f2f, #ff6b6b, #d32f2f, transparent);
+              opacity: 0.6;
+              animation: scanBeam 7.5s ease-in-out infinite;
+              pointer-events: none;
+              top: 0;
+            }
+
+            @keyframes scanBeam {
+              0%   { top: 0%; opacity: 0; }
+              15%  { opacity: 0.6; }
+              85%  { opacity: 0.6; }
+              100% { top: 100%; opacity: 0; }
             }
 
             .about-back-btn {
