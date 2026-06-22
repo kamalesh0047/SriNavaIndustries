@@ -7,10 +7,10 @@ const cinemaStyles = `
   --steel-dark: #0a0d12;
   --steel-mid: #161b22;
   --steel-light: #2a313b;
-  --gold: #d4af37;
-  --gold-bright: #f1d27a;
+  --gold: #e74c3c;
+  --gold-bright: #ff6b6b;
   --silver: #c8ccd2;
-  --accent-red: #c81e1e;
+  --accent-red: #e74c3c;
   --text-soft: rgba(255, 255, 255, 0.65);
   --scene-dur: 0.9s;
 }
@@ -555,8 +555,8 @@ export function AboutPage() {
 
             .about-back-btn:hover {
               color: rgba(255, 255, 255, 0.8);
-              border-color: rgba(212, 175, 55, 0.3);
-              background: rgba(212, 175, 55, 0.05);
+              border-color: rgba(231, 76, 60, 0.3);
+              background: rgba(231, 76, 60, 0.05);
             }
 
             .about-title {
@@ -565,7 +565,7 @@ export function AboutPage() {
               letter-spacing: -0.02em;
               line-height: 1.1;
               margin-bottom: 1.5rem;
-              background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(212, 175, 55, 0.9) 100%);
+              background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(231, 76, 60, 0.9) 100%);
               -webkit-background-clip: text;
               background-clip: text;
               -webkit-text-fill-color: transparent;
