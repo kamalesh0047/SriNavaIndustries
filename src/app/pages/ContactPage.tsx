@@ -268,7 +268,7 @@ export function ContactPage() {
           font-size: clamp(1.5rem, 3vw, 2rem);
           font-weight: 800;
           letter-spacing: -0.02em;
-          background: linear-gradient(135deg, #fff, var(--crimson-bright));
+          background: linear-gradient(135deg, #fff 0%, #fff 50%, var(--crimson-bright) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
