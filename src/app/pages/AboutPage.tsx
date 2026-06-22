@@ -893,7 +893,7 @@ export function AboutPage() {
               display: flex;
               align-items: center;
               gap: 0.75rem;
-              text-align: justify;
+              text-align: left;
             }
 
             .expertise-title::before {
