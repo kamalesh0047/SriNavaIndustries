@@ -241,7 +241,7 @@ export function MachineryDetailPage() {
                         <img
                           src={equipment.img}
                           alt={equipment.name}
-                          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                         />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0606] via-transparent to-transparent opacity-60" />
                         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-red-500/0 transition-all duration-500 group-hover:ring-red-500/40" />
