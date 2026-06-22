@@ -4,10 +4,13 @@ import img1 from "../../imports/WhatsApp_Image_2026-06-21_at_10.21.12.jpeg";
 
 const machines = [
   {
-    name: "Laser Ctting",
+    name: "Laser Cutting",
     icon: "◈",
     desc: "Precision cuts up to 25mm thick steel with ±0.1mm tolerance.",
-    subEquipment: [
+    subEquipment: [{
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F1f24f4638f844b5cab32080a519fe8d0?format=webp&width=800&height=1200",
+        description: "Our 3 kW CNC Fiber Laser Cutting Machine delivers high-speed, high-precision sheet metal processing using premium components from RayTools, HIWIN, THK, SMC, Schneider Electric, and ABB. With positioning accuracy of ±0.05 mm and the capability to cut mild steel up to 20 mm thickness, the machine ensures superior quality, repeatability, and productivity for industrial fabrication requirements.",
+      }, 
       {
     name:"Plasma Cutting Machine"
     img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2Fb1ef51b9ed6048bc97790f3eef6d49f5?format=webp&width=800&height=1200",
