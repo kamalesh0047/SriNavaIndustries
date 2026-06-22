@@ -9,6 +9,12 @@ const machines = [
     desc: "Precision cuts up to 25mm thick steel with ±0.1mm tolerance.",
     img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2Fb1ef51b9ed6048bc97790f3eef6d49f5?format=webp&width=800&height=1200",
     more: "Sri Nava Industries is equipped with an industrial Plasma Cutting Machine capable of cutting stainless steel plates up to 25 mm thickness. The machine provides fast, accurate, and efficient cutting for heavy fabrication projects, structural components, tanks, vessels, and custom metal parts. This capability enables us to process thick materials while maintaining productivity and quality standards",
+    additionalImages: [
+      {
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F1f24f4638f844b5cab32080a519fe8d0?format=webp&width=800&height=1200",
+        description: "Our 3 kW CNC Fiber Laser Cutting Machine delivers high-speed, high-precision sheet metal processing using premium components from RayTools, HIWIN, THK, SMC, Schneider Electric, and ABB. With positioning accuracy of ±0.05 mm and the capability to cut mild steel up to 20 mm thickness, the machine ensures superior quality, repeatability, and productivity for industrial fabrication requirements.",
+      },
+    ],
   },
   {
     name: "Machinaries",
@@ -364,6 +370,69 @@ export function MachineryDetailPage() {
               )}
             </motion.div>
           </motion.div>
+        )}
+
+        {/* Additional Images Section */}
+        {machinery?.additionalImages && machinery.additionalImages.length > 0 && (
+          <div className="space-y-16 px-8 md:px-16 lg:px-24 py-20">
+            {machinery.additionalImages.map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.8, ease: easeSmooth, delay: 0.2 }}
+              >
+                <motion.div
+                  className="lg:sticky lg:top-28"
+                  initial={{ opacity: 0, scale: 0.96, x: -24 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  transition={{ duration: 0.8, ease: easeSmooth, delay: 0.15 }}
+                >
+                  <div
+                    className="group relative overflow-hidden rounded-3xl border border-white/10"
+                    style={{
+                      boxShadow: "0 30px 70px -25px rgba(127,29,29,0.55)",
+                    }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={machinery.name}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0606]/70 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-red-500/0 transition-all duration-500 group-hover:ring-red-500/40" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, ease: easeSmooth, delay: 0.3 }}
+                >
+                  <motion.div
+                    className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-7 pl-8"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.7,
+                      ease: easeSmooth,
+                      delay: 0.5,
+                    }}
+                  >
+                    <div className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-gradient-to-b from-red-500 to-red-800" />
+                    <p
+                      className="text-white/55"
+                      style={{ fontSize: "0.98rem", lineHeight: 1.85 }}
+                    >
+                      {item.description}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         )}
       </div>
     </div>
