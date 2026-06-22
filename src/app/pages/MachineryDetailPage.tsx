@@ -37,7 +37,7 @@ const machines = [
       },
       {
         name: "Bandsaw Machine",
-        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F64365b5c7ba04d77b95a9d95d2631353?format=webp&width=800&height=1200",
+        img: "https://cdn.builder.io/api/v1/image/assets%2Ffc9c51b5c7bb434bb02302d7c203af2b%2F5c9c8092bb0049e38f841c76a62179f8?format=webp&width=800&height=1200",
         desc: "Our Horizontal Metal Cutting Bandsaw Machine provides precise and efficient cutting of pipes, tubes, solid bars, and structural steel sections. Equipped with a hydraulic feed system and heavy-duty clamping mechanism, the machine ensures accurate cuts, improved productivity, and reduced material wastage, making it an essential part of our fabrication and manufacturing operations.",
       },
       {
