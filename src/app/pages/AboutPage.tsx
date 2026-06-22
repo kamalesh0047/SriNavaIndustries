@@ -159,6 +159,10 @@ body {
 /* ---- Scene 1 ---- */
 #scene1 .big {
   font-size: clamp(2.2rem, 8vw, 6rem);
+  max-width: 90vw;
+  word-spacing: 0.3em;
+  letter-spacing: 0.05em;
+  display: block;
 }
 .scene.active .reveal-1 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) both; }
 .scene.active .reveal-2 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) 0.25s both; }
