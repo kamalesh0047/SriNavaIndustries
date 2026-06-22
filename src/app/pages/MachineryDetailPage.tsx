@@ -7,8 +7,14 @@ const machines = [
     name: "Laser Cutting",
     icon: "◈",
     desc: "Precision cuts up to 25mm thick steel with ±0.1mm tolerance.",
-    img: img1,
-    more: "Our 3 kW CNC Fiber Laser Cutting Machine delivers high-speed, high-precision sheet metal processing using premium components from RayTools, HIWIN, THK, SMC, Schneider Electric, and ABB. With positioning accuracy of ±0.05 mm and the capability to cut mild steel up to 20 mm thickness, the machine ensures superior quality, repeatability, and productivity for industrial fabrication requirements.",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2Fb1ef51b9ed6048bc97790f3eef6d49f5?format=webp&width=800&height=1200",
+    more: "Sri Nava Industries is equipped with an industrial Plasma Cutting Machine capable of cutting stainless steel plates up to 25 mm thickness. The machine provides fast, accurate, and efficient cutting for heavy fabrication projects, structural components, tanks, vessels, and custom metal parts. This capability enables us to process thick materials while maintaining productivity and quality standards",
+    additionalImages: [
+      {
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2F1f24f4638f844b5cab32080a519fe8d0?format=webp&width=800&height=1200",
+        description: "Our 3 kW CNC Fiber Laser Cutting Machine delivers high-speed, high-precision sheet metal processing using premium components from RayTools, HIWIN, THK, SMC, Schneider Electric, and ABB. With positioning accuracy of ±0.05 mm and the capability to cut mild steel up to 20 mm thickness, the machine ensures superior quality, repeatability, and productivity for industrial fabrication requirements.",
+      },
+    ],
   },
   {
     name: "Machinaries",
@@ -55,6 +61,12 @@ const machines = [
     desc: "Advanced welding systems for structural steel and precision joints.",
     img: "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2F349725b4a00a495a82a79429158f9d40?format=webp&width=800&height=1200",
     more: "Our Arc Welding Transformer is designed to deliver reliable and consistent welding performance for industrial and fabrication applications. Built with a robust transformer-based design, it ensures stable current output and long service life. Multiple current settings allow easy adjustment for different electrode sizes and welding requirements. The heavy-duty construction makes it suitable for continuous operation in demanding environments. Widely used in structural fabrication, repair works, and general metal joining, it offers dependable performance with minimal maintenance.",
+    additionalImages: [
+      {
+        img: "https://cdn.builder.io/api/v1/image/assets%2F6081257f56164f79a999356618a191cf%2Ff07fc4b2f5c24ec4b0e58ddbf85d1ead?format=webp&width=800&height=1200",
+        description: "Sri Nava Industries utilizes the ESAB AUTO K 400 CO₂/MIG Welding Machine for high-quality fabrication and assembly operations. With a welding output of up to 400 Amps and an automatic wire feed system, the machine delivers strong, consistent welds with excellent productivity. It is ideally suited for manufacturing structural assemblies, tanks, machine frames, sheet metal components, and custom fabrication projects.",
+      },
+    ],
   },
 ];
 
@@ -133,7 +145,7 @@ export function MachineryDetailPage() {
         </div>
       </motion.nav>
 
-      <div className="relative z-10 px-8 md:px-16 lg:px-24 py-28">
+      <div className="relative z-10 px-8 md:px-16 lg:px-24 py-32">
         {machinery.subEquipment ? (
           /* ---------- MULTI-EQUIPMENT VIEW ---------- */
           <motion.div
@@ -143,24 +155,27 @@ export function MachineryDetailPage() {
           >
             {/* Header */}
             <motion.div
-              className="mb-20 max-w-3xl"
+              className="mb-28 max-w-4xl"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: easeSmooth, delay: 0.1 }}
             >
-              <div className="mb-6 flex items-center gap-4">
-                <span
-                  className="text-red-500"
-                  style={{ fontSize: "2.25rem", lineHeight: 1 }}
-                >
-                  {machinery.icon}
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-red-600/60 to-transparent" />
+              <div className="mb-8 flex items-center gap-5">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-red-500/20 rounded-xl blur-xl" />
+                  <span
+                    className="relative text-red-500"
+                    style={{ fontSize: "3rem", lineHeight: 1 }}
+                  >
+                    {machinery.icon}
+                  </span>
+                </div>
+                <div className="h-12 w-px bg-gradient-to-b from-red-600/60 via-red-600/30 to-transparent" />
               </div>
 
               <p
-                className="mb-4 font-medium uppercase text-red-500/80"
-                style={{ fontSize: "0.75rem", letterSpacing: "0.3em" }}
+                className="mb-6 font-medium uppercase text-red-400"
+                style={{ fontSize: "0.8rem", letterSpacing: "0.4em" }}
               >
                 Equipment Suite
               </p>
@@ -168,10 +183,10 @@ export function MachineryDetailPage() {
               <h1
                 className="text-white"
                 style={{
-                  fontSize: "clamp(2.25rem, 5vw, 4rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.05,
+                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.1,
                 }}
               >
                 {machinery.name}
@@ -270,7 +285,7 @@ export function MachineryDetailPage() {
         ) : (
           /* ---------- SINGLE MACHINE VIEW ---------- */
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: easeSmooth }}
@@ -278,73 +293,77 @@ export function MachineryDetailPage() {
             {/* Image */}
             {machinery.img && (
               <motion.div
-                className="lg:sticky lg:top-28"
+                className="lg:col-span-5 lg:sticky lg:top-40"
                 initial={{ opacity: 0, scale: 0.96, x: -24 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: easeSmooth, delay: 0.15 }}
               >
                 <div
-                  className="group relative overflow-hidden rounded-3xl border border-white/10"
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 backdrop-blur-sm"
                   style={{
-                    boxShadow: "0 30px 70px -25px rgba(127,29,29,0.55)",
+                    boxShadow: "0 40px 80px -30px rgba(127,29,29,0.6), inset 0 1px 0 rgba(255,255,255,0.05)",
                   }}
                 >
                   <img
                     src={machinery.img}
                     alt={machinery.name}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0606]/70 via-transparent to-transparent" />
-                  <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-red-500/0 transition-all duration-500 group-hover:ring-red-500/40" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0606]/80 via-[#0c0606]/20 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-red-500/0 transition-all duration-500 group-hover:ring-red-500/50" />
                 </div>
               </motion.div>
             )}
 
             {/* Content */}
             <motion.div
+              className="lg:col-span-7"
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: easeSmooth, delay: 0.3 }}
             >
-              <div className="mb-6 flex items-center gap-4">
-                <span
-                  className="text-red-500"
-                  style={{ fontSize: "2.25rem", lineHeight: 1 }}
-                >
-                  {machinery.icon}
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-red-600/60 to-transparent" />
+              <div className="mb-8 flex items-center gap-5">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-red-500/15 rounded-lg blur-lg" />
+                  <span
+                    className="relative text-red-500"
+                    style={{ fontSize: "2.75rem", lineHeight: 1 }}
+                  >
+                    {machinery.icon}
+                  </span>
+                </div>
+                <div className="h-10 w-px bg-gradient-to-b from-red-600/70 via-red-600/30 to-transparent" />
               </div>
 
               <p
-                className="mb-4 font-medium uppercase text-red-500/80"
-                style={{ fontSize: "0.75rem", letterSpacing: "0.3em" }}
+                className="mb-6 font-semibold uppercase text-red-400"
+                style={{ fontSize: "0.8rem", letterSpacing: "0.4em" }}
               >
                 Precision Engineering
               </p>
 
               <h1
-                className="mb-6 text-white"
+                className="mb-8 text-white"
                 style={{
-                  fontSize: "clamp(2.25rem, 5vw, 4rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.05,
+                  fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.1,
                 }}
               >
                 {machinery.name}
               </h1>
 
               <p
-                className="mb-10 text-white/70"
-                style={{ fontSize: "1.15rem", lineHeight: 1.7 }}
+                className="mb-12 text-white/80"
+                style={{ fontSize: "1.1rem", lineHeight: 1.8, fontWeight: 500 }}
               >
                 {machinery.desc}
               </p>
 
               {machinery.more && (
                 <motion.div
-                  className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-7 pl-8"
+                  className="relative rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/5 to-red-800/5 p-8 pl-6 backdrop-blur-sm"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
@@ -353,10 +372,10 @@ export function MachineryDetailPage() {
                     delay: 0.5,
                   }}
                 >
-                  <div className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-gradient-to-b from-red-500 to-red-800" />
+                  <div className="absolute left-0 top-6 bottom-6 w-1 rounded-full bg-gradient-to-b from-red-500 via-red-600 to-red-900" />
                   <p
-                    className="text-white/55"
-                    style={{ fontSize: "0.98rem", lineHeight: 1.85 }}
+                    className="text-white/75"
+                    style={{ fontSize: "1rem", lineHeight: 1.9, fontWeight: 500 }}
                   >
                     {machinery.more}
                   </p>
@@ -364,6 +383,73 @@ export function MachineryDetailPage() {
               )}
             </motion.div>
           </motion.div>
+        )}
+
+        {/* Additional Images Section */}
+        {machinery?.additionalImages && machinery.additionalImages.length > 0 && (
+          <div className="space-y-28 pt-20 border-t border-white/10">
+            {machinery.additionalImages.map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.8, ease: easeSmooth, delay: 0.2 }}
+              >
+                <motion.div
+                  className={`lg:col-span-5 lg:sticky lg:top-40 ${idx % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}
+                  initial={{ opacity: 0, scale: 0.96, x: idx % 2 === 1 ? 24 : -24 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.8, ease: easeSmooth, delay: 0.15 }}
+                >
+                  <div
+                    className="group relative overflow-hidden rounded-3xl border border-white/10 backdrop-blur-sm"
+                    style={{
+                      boxShadow: "0 40px 80px -30px rgba(127,29,29,0.6), inset 0 1px 0 rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={machinery.name}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0606]/80 via-[#0c0606]/20 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-red-500/0 transition-all duration-500 group-hover:ring-red-500/50" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className={`lg:col-span-7 ${idx % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}
+                  initial={{ opacity: 0, x: idx % 2 === 1 ? -24 : 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.8, ease: easeSmooth, delay: 0.3 }}
+                >
+                  <motion.div
+                    className="relative rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/5 to-red-800/5 p-8 pl-6 backdrop-blur-sm"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{
+                      duration: 0.7,
+                      ease: easeSmooth,
+                      delay: 0.5,
+                    }}
+                  >
+                    <div className="absolute left-0 top-6 bottom-6 w-1 rounded-full bg-gradient-to-b from-red-500 via-red-600 to-red-900" />
+                    <p
+                      className="text-white/75"
+                      style={{ fontSize: "1rem", lineHeight: 1.9, fontWeight: 500 }}
+                    >
+                      {item.description}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         )}
       </div>
     </div>
