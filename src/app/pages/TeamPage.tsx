@@ -168,6 +168,61 @@ export function TeamPage() {
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
+
+          {/* Professionals Count Card */}
+          <motion.div
+            className="group relative border border-red-500/20 bg-gradient-to-br from-red-500/5 to-red-500/0 p-8 hover:border-red-500/60 hover:bg-red-500/8 hover:shadow-lg hover:shadow-red-500/10 rounded-sm overflow-hidden flex flex-col items-center justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: teamMembers.length * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            style={{ minHeight: "320px" }}
+          >
+            <motion.div
+              className="text-red-500/40 mb-6"
+              style={{ fontSize: "3.5rem", fontWeight: 700 }}
+              whileHover={{ rotate: 15, scale: 1.15 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              👥
+            </motion.div>
+
+            <h3
+              className="text-white text-center mb-2"
+              style={{ fontSize: "1.15rem", fontWeight: 600, letterSpacing: "-0.01em" }}
+            >
+              9+ Professionals
+            </h3>
+
+            <p
+              className="text-white/60 text-center mb-4"
+              style={{ fontSize: "0.9rem", fontWeight: 500 }}
+            >
+              Skilled Specialists
+            </p>
+
+            <div className="mb-4 flex justify-center">
+              <span
+                className="text-red-500/60 text-xs px-3 py-1 border border-red-500/30 rounded-full"
+                style={{ fontSize: "0.65rem", letterSpacing: "0.1em" }}
+              >
+                EXPANDING TEAM
+              </span>
+            </div>
+
+            <p className="text-white/40 text-center" style={{ fontSize: "0.85rem", lineHeight: 1.6 }}>
+              Dedicated experts across manufacturing, engineering, and operations working together to deliver excellence.
+            </p>
+
+            <motion.div
+              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500/0 via-red-500/60 to-red-500/0"
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileHover={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              style={{ originX: 0.5 }}
+            />
+          </motion.div>
         </div>
       </div>
 
