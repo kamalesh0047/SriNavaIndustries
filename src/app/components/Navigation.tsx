@@ -119,12 +119,7 @@ export function Navigation() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="nav-content">
-          <button
-            onClick={() => navigate("/")}
-            className="nav-logo"
-          >
-            OVISION
-          </button>
+         
           <div className="nav-menu">
             {navItems.map((item) => (
               <button

@@ -35,7 +35,7 @@ body {
   min-height: 600px;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(212,175,55,0.06), transparent 55%),
+    radial-gradient(ellipse at 30% 20%, rgba(255,65,65,0.10), transparent 55%),
     radial-gradient(ellipse at 75% 80%, rgba(200,30,30,0.07), transparent 55%),
     linear-gradient(160deg, #0a0d12 0%, #11161d 45%, #0a0d12 100%);
 }
@@ -56,7 +56,7 @@ body {
   position: absolute;
   top: 0; left: -40%;
   width: 60%; height: 100%;
-  background: linear-gradient(105deg, transparent, rgba(212,175,55,0.10), rgba(255,255,255,0.06), transparent);
+  background: linear-gradient(105deg, transparent, rgba(255,65,65,0.12), rgba(255,255,255,0.06), transparent);
   transform: skewX(-18deg);
   animation: sweep 9s linear infinite;
   pointer-events: none;
@@ -74,7 +74,7 @@ body {
   width: 2px; height: 2px;
   border-radius: 50%;
   background: var(--gold-bright);
-  box-shadow: 0 0 6px 1px rgba(241,210,122,0.8);
+  box-shadow: 0 0 6px 1px rgba(255,100,100,0.8);
   bottom: -10px;
   animation: rise linear infinite;
   opacity: 0;
@@ -228,7 +228,7 @@ background: linear-gradient(
 /* spark sweep transition */
 .spark-sweep {
   position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 30;
-  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.55), rgba(255,255,255,0.8), rgba(200,30,30,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,100,100,0.55), rgba(255,255,255,0.8), rgba(200,30,30,0.4), transparent);
   transform: translateX(-100%);
 }
 .spark-sweep.run { animation: sparkSweep 0.9s ease-in-out both; }
@@ -330,7 +330,7 @@ background: linear-gradient(
   color: #fff;
   cursor: pointer;
   border-radius: 14px;
-  border: 1px solid rgba(212,175,55,0.4);
+  border: 1px solid rgba(255,100,100,0.35);
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -340,7 +340,7 @@ background: linear-gradient(
 .cta:hover {
   transform: translateY(-3px);
   border-color: var(--gold-bright);
-  box-shadow: 0 12px 40px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.18);
+  box-shadow: 0 12px 40px rgba(255,100,100,0.25), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 .cta svg { transition: transform 0.3s ease; }
 .cta:hover svg { transform: translateX(4px); }

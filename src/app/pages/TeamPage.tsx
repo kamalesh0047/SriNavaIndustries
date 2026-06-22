@@ -52,13 +52,6 @@ export function TeamPage() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <button
-          onClick={() => navigate("/")}
-          className="text-white uppercase bg-transparent border-none cursor-pointer"
-          style={{ fontSize: "0.85rem", letterSpacing: "0.2em" }}
-        >
-          OVISION
-        </button>
-        <button
           onClick={() => navigate("/work")}
           className="text-white/40 hover:text-white transition-colors duration-200 bg-transparent border-none cursor-pointer"
           style={{ fontSize: "0.8rem", letterSpacing: "0.1em" }}
