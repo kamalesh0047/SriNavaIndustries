@@ -146,44 +146,59 @@
   }
 
   h1 {
+    font-family: 'Times New Roman', Times, serif;
     font-size: var(--text-2xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h2 {
+    font-family: 'Times New Roman', Times, serif;
     font-size: var(--text-xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h3 {
+    font-family: 'Times New Roman', Times, serif;
     font-size: var(--text-lg);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h4 {
+    font-family: 'Times New Roman', Times, serif;
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   label {
+    font-family: 'Inter', sans-serif;
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   button {
+    font-family: 'Inter', sans-serif;
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   input {
+    font-family: 'Inter', sans-serif;
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+
+  p {
+    font-family: 'Inter', sans-serif;
+  }
+
+  span {
+    font-family: 'Inter', sans-serif;
   }
 }
