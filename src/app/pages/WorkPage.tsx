@@ -84,16 +84,6 @@ export function WorkPage() {
 
         {/* Hero text */}
         <div className="absolute inset-0 flex flex-col justify-end pb-16 px-8 md:px-16 lg:px-24 z-10">
-          <motion.button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors duration-200 bg-transparent border-none cursor-pointer mb-8 w-fit"
-            style={{ fontSize: "0.78rem", letterSpacing: "0.08em" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            ← Back to Home
-          </motion.button>
 
           <motion.div
             className="flex items-center gap-3 mb-4"
