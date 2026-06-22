@@ -7,30 +7,35 @@ const teamMembers = [
     role: "Founder",
     expertise: "Strategic Vision & Leadership",
     bio: "Visionary founder who established Sri Nava Industries in 1985, building a legacy of excellence in fabrication and engineering.",
+    image: null,
   },
   {
     name: "Vijayalakshmi Bhuvanendran",
     role: "Managing Director & Finance",
     expertise: "Business Strategy & Finance",
     bio: "Leads overall business operations and financial management, ensuring sustainable growth and profitability.",
+    image: null,
   },
   {
     name: "Kathiravan B",
     role: "Operations Manager & Administration",
     expertise: "Operations & Administration",
     bio: "Oversees daily operations, resource management, and administrative functions for seamless business delivery.",
+    image: "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2Fc150baa7acad4741b119baabb752da24?format=webp&width=800&height=1200",
   },
   {
     name: "Karthigeyan B",
     role: "Design Engineer & CAD Specialist",
     expertise: "CAD Design & Engineering",
     bio: "Creates precision designs and technical specifications using advanced CAD tools for complex fabrication projects.",
+    image: "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2Faeabf3660714467494ceeb8be96b8f10?format=webp&width=800&height=1200",
   },
   {
     name: "Kamalesh S",
     role: "Accounts & Information Technology",
     expertise: "Finance & IT Systems",
     bio: "Manages financial operations, IT infrastructure, and systems to support business growth and data security.",
+    image: "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2Fee07453fcebd435c9d7aa1bcd637d990?format=webp&width=800&height=1200",
   },
 ];
 
@@ -111,10 +116,18 @@ export function TeamPage() {
               transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Avatar Circle */}
-              <div className="mb-6 flex items-center justify-center w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 group-hover:border-white/20 transition-colors duration-300">
-                <span className="text-3xl font-bold text-white/40 group-hover:text-white/60 transition-colors duration-300">
-                  {member.name.charAt(0)}
-                </span>
+              <div className="mb-6 flex items-center justify-center w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 group-hover:border-white/20 transition-colors duration-300 overflow-hidden">
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-3xl font-bold text-white/40 group-hover:text-white/60 transition-colors duration-300">
+                    {member.name.charAt(0)}
+                  </span>
+                )}
               </div>
 
               {/* Content */}
