@@ -5,7 +5,10 @@ import bgVideo from "../../imports/make_this_animated__like_a_ovi.mp4";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const headlineLines = ["Building Excellence", "in Steel Since 1985"];
+const headlineLines = [
+  "Building Excellence",
+  "in Steel Since 1985"
+];
 
 export function HomePage() {
   const navigate = useNavigate();
