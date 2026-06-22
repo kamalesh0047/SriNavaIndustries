@@ -43,17 +43,31 @@ export function TeamPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#050506]">
+      <style>{`
+        .team-page-glow {
+          position: absolute;
+          top: 5%;
+          left: 50%;
+          width: 75vw;
+          height: 60vh;
+          transform: translateX(-50%);
+          background: radial-gradient(ellipse at center, rgba(225, 29, 46, 0.15) 0%, transparent 70%);
+          filter: blur(60px);
+          pointer-events: none;
+        }
+      `}</style>
+      <div className="team-page-glow" />
       {/* Header */}
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between px-8 py-6 bg-[#0a0a0a]/80 backdrop-blur-sm border-b border-white/5"
+        className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between px-8 py-6 bg-[#050506]/80 backdrop-blur-sm border-b border-white/5"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <button
           onClick={() => navigate("/work")}
-          className="text-white/40 hover:text-white transition-colors duration-200 bg-transparent border-none cursor-pointer"
+          className="text-white/40 hover:text-red-400 transition-colors duration-200 bg-transparent border-none cursor-pointer"
           style={{ fontSize: "0.8rem", letterSpacing: "0.1em" }}
         >
           ← Back
@@ -62,9 +76,9 @@ export function TeamPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden pt-32 pb-24 px-8 md:px-16 lg:px-24">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
         </div>
 
         <motion.div
@@ -102,14 +116,14 @@ export function TeamPage() {
           {teamMembers.map((member, i) => (
             <motion.div
               key={member.name}
-              className="group relative border border-white/15 bg-white/5 p-8 hover:border-white/30 hover:bg-white/8 transition-all duration-300 rounded-sm overflow-hidden"
+              className="group relative border border-white/15 bg-white/5 p-8 hover:border-red-500/40 hover:bg-white/8 transition-all duration-300 rounded-sm overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Avatar Circle */}
-              <div className="mb-6 flex items-center justify-center w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 group-hover:border-white/20 transition-colors duration-300 overflow-hidden shadow-lg">
+              <div className="mb-6 flex items-center justify-center w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 group-hover:border-red-500/40 transition-colors duration-300 overflow-hidden shadow-lg">
                 {member.image ? (
                   <img
                     src={member.image}

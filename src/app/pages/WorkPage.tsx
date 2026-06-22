@@ -82,7 +82,22 @@ export function WorkPage() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#050506]">
+      <style>{`
+        .work-page-glow {
+          position: absolute;
+          top: -15%;
+          left: 50%;
+          width: 70vw;
+          height: 60vh;
+          transform: translateX(-50%);
+          background: radial-gradient(ellipse at center, rgba(225, 29, 46, 0.2) 0%, transparent 70%);
+          filter: blur(60px);
+          pointer-events: none;
+          z-index: 0;
+        }
+      `}</style>
+      <div className="work-page-glow" />
       <div className="relative w-full overflow-hidden" style={{ height: "50vh" }}>
         <img
           src={headerImg}
@@ -172,7 +187,7 @@ export function WorkPage() {
           {machines.map((m, i) => (
             <motion.div
               key={m.name}
-              className="group relative border border-white/15 bg-white/5 p-8 hover:border-white/30 hover:bg-white/8 transition-all duration-300 cursor-pointer overflow-hidden rounded-sm"
+              className="group relative border border-white/15 bg-white/5 p-8 hover:border-red-500/40 hover:bg-white/8 transition-all duration-300 cursor-pointer overflow-hidden rounded-sm"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -181,7 +196,7 @@ export function WorkPage() {
               style={{ minHeight: "200px", display: "flex", flexDirection: "column", justifyContent: "center" }}
             >
               <div
-                className="text-white/30 mb-6 group-hover:text-white/50 transition-colors duration-300"
+                className="text-white/30 mb-6 group-hover:text-red-400/70 transition-colors duration-300"
                 style={{ fontSize: "2.5rem" }}
               >
                 {m.icon}
@@ -194,7 +209,7 @@ export function WorkPage() {
                 {m.name}
               </h3>
 
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-red-500/0 via-red-500/30 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>
