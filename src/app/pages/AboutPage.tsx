@@ -672,55 +672,108 @@ export function AboutPage() {
 
             .expertise-section {
               display: grid;
-              gap: 3rem;
-              max-width: 900px;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 2rem;
+              max-width: 1200px;
             }
 
             .expertise-category {
+              padding: 2rem;
+              border: 1px solid rgba(212, 175, 55, 0.15);
+              border-radius: 8px;
+              background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+              transition: all 0.3s ease;
               position: relative;
-              padding-left: 1.5rem;
+              overflow: hidden;
             }
 
             .expertise-category::before {
               content: '';
               position: absolute;
-              left: 0;
               top: 0;
-              width: 3px;
-              height: 100%;
-              background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
-              border-radius: 2px;
+              left: 0;
+              right: 0;
+              height: 3px;
+              background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+              opacity: 0.6;
+            }
+
+            .expertise-category::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.03) 100%);
+              pointer-events: none;
+            }
+
+            .expertise-category:hover {
+              border-color: rgba(212, 175, 55, 0.35);
+              background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+              transform: translateY(-4px);
+              box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
             }
 
             .expertise-title {
-              font-size: 1.15rem;
+              font-size: 1.2rem;
               font-weight: 600;
               color: white;
-              margin-bottom: 1rem;
+              margin-bottom: 1.5rem;
               letter-spacing: 0.5px;
+              position: relative;
+              z-index: 1;
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+            }
+
+            .expertise-title::before {
+              content: '◆';
+              color: var(--gold);
+              font-size: 0.8rem;
             }
 
             .expertise-list {
               display: flex;
               flex-direction: column;
-              gap: 0.75rem;
+              gap: 0.9rem;
+              position: relative;
+              z-index: 1;
             }
 
             .expertise-item {
-              font-size: 0.95rem;
+              font-size: 0.9rem;
               line-height: 1.6;
-              color: rgba(255, 255, 255, 0.65);
+              color: rgba(255, 255, 255, 0.7);
               display: flex;
               align-items: flex-start;
-              gap: 0.75rem;
+              gap: 0.65rem;
+              transition: color 0.3s ease;
+            }
+
+            .expertise-category:hover .expertise-item {
+              color: rgba(255, 255, 255, 0.85);
             }
 
             .expertise-item::before {
               content: '→';
-              color: rgba(212, 175, 55, 0.5);
+              color: rgba(212, 175, 55, 0.6);
               font-weight: 600;
               flex-shrink: 0;
               margin-top: 2px;
+              transition: color 0.3s ease;
+            }
+
+            .expertise-category:hover .expertise-item::before {
+              color: var(--gold);
+            }
+
+            @media (max-width: 768px) {
+              .expertise-section {
+                grid-template-columns: 1fr;
+              }
             }
 
             .clients-grid {
