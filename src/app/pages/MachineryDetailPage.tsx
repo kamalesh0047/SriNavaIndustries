@@ -4,7 +4,7 @@ import img1 from "../../imports/WhatsApp_Image_2026-06-21_at_10.21.12.jpeg";
 
 const machines = [
   {
-    name: "Laser Cutting",
+    name: "Laser Ctting",
     icon: "◈",
     desc: "Precision cuts up to 25mm thick steel with ±0.1mm tolerance.",
     subEquipment: [
