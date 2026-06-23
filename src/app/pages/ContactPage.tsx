@@ -58,10 +58,10 @@ export function ContactPage() {
       link: "mailto:srinavaindustries@gmail.com",
     },
     {
-      icon: "🌐",
-      label: "Website",
-      value: "www.srinavaindustries.com",
-      link: "[srinavaindustries.com](https://www.srinavaindustries.com)",
+      icon: "📱",
+      label: "Instagram",
+      value: "@srinavaindustries",
+      link: "https://www.instagram.com/srinavaindustries",
     },
     {
       icon: "🏢",
