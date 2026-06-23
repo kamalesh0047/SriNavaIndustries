@@ -235,7 +235,8 @@ export function HomePage() {
 
       {/* Stat bar */}
       <motion.div
-        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-end gap-10"
+        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-stretch gap-10 flex-wrap overflow-auto justify-start"
+        style={{ marginBottom: "179px" }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.3 }}
