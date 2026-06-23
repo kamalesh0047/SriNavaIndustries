@@ -213,26 +213,6 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-      >
-        <span
-          className="text-white/40 uppercase"
-          style={{ fontSize: "0.6rem", letterSpacing: "0.2em" }}
-        >
-          Scroll
-        </span>
-        <motion.div
-          className="w-px h-10 bg-gradient-to-b from-amber-400/60 to-transparent"
-          animate={{ scaleY: [0.5, 1, 0.5], opacity: [0.4, 0.9, 0.4] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
-
       {/* Stat bar */}
       <motion.div
         className="absolute bottom-8 right-8 z-10 hidden sm:flex items-stretch gap-10 flex-wrap overflow-auto justify-start"
