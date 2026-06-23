@@ -14,7 +14,7 @@ const teamMembers = [
     role: "Managing Director & Finance",
     expertise: "Business Strategy & Finance",
     bio: "Leads overall business operations and financial management, ensuring sustainable growth and profitability.",
-    image: null,
+    image: "https://cdn.builder.io/api/v1/image/assets%2F8d59509cf87341108edce9d018bc2251%2F06964036adde469bbf95cc6e2403dd1b?format=webp&width=800&height=1200",
   },
   {
     name: "Kathiravan B",
