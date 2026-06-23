@@ -60,8 +60,8 @@ export function ContactPage() {
     {
       icon: "📱",
       label: "Instagram",
-      value: "@srinavaindustries",
-      link: "https://www.instagram.com/srinavaindustries",
+      value: "@srinava_industries",
+      link: "https://www.instagram.com/srinava_industries",
     },
     {
       icon: "🏢",
