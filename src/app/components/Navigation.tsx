@@ -119,7 +119,6 @@ export function Navigation() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="nav-content">
-         
           <div className="nav-menu">
             {navItems.map((item) => (
               <button

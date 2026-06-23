@@ -7,14 +7,14 @@ const teamMembers = [
     role: "Founder",
     expertise: "Strategic Vision & Leadership",
     bio: "Visionary founder who established Sri Nava Industries in 1985, building a legacy of excellence in fabrication and engineering.",
-    image: null,
+    image: "https://cdn.builder.io/api/v1/image/assets%2F8d59509cf87341108edce9d018bc2251%2F00069108c25d40428305c9e6076ac7a4?format=webp&width=800&height=1200",
   },
   {
     name: "Vijayalakshmi Bhuvanendran",
     role: "Managing Director & Finance",
     expertise: "Business Strategy & Finance",
     bio: "Leads overall business operations and financial management, ensuring sustainable growth and profitability.",
-    image: null,
+    image: "https://cdn.builder.io/api/v1/image/assets%2F8d59509cf87341108edce9d018bc2251%2F06964036adde469bbf95cc6e2403dd1b?format=webp&width=800&height=1200",
   },
   {
     name: "Kathiravan B",
@@ -154,14 +154,18 @@ export function TeamPage() {
 
         .team-header {
           padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 4vw, 2.5rem);
-          text-align: left;
+          text-align: center;
           max-width: 1280px;
           margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .eyebrow {
-          display: inline-flex;
+          display: flex;
           align-items: center;
+          justify-content: center;
           gap: 0.7rem;
           font-size: 0.72rem;
           letter-spacing: 0.3em;
@@ -195,12 +199,16 @@ export function TeamPage() {
           color: var(--text-dim);
           line-height: 1.75;
           max-width: 640px;
+          margin: 0 auto;
+          text-align: center;
         }
 
         .team-grid-wrapper {
           padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 3rem) clamp(4rem, 8vw, 7rem);
           max-width: 1280px;
           margin: 0 auto;
+          display: flex;
+          justify-content: center;
         }
 
         .team-card {

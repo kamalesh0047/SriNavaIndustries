@@ -114,6 +114,16 @@ body {
 }
 .scene.active { opacity: 1; pointer-events: auto; }
 
+/* Scene 1 specific left alignment */
+#scene1 {
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: clamp(1.5rem, 5vw, 3rem);
+}
+#scene1 .big {
+  text-align: left;
+}
+
 /* shared metallic headline */
 .metallic {
   font-family: 'Oswald', sans-serif;
@@ -158,7 +168,17 @@ body {
 
 /* ---- Scene 1 ---- */
 #scene1 .big {
-  font-size: clamp(2.2rem, 8vw, 6rem);
+  font-size: clamp(1.5rem, 7vw, 4.5rem);
+  max-width: 90vw;
+  word-spacing: 0.1em;
+  letter-spacing: 0.02em;
+  display: block;
+  width: auto;
+  background: none;
+  color: #d32f2f;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  overflow-wrap: break-word;
 }
 .scene.active .reveal-1 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) both; }
 .scene.active .reveal-2 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) 0.25s both; }
@@ -538,6 +558,28 @@ export function AboutPage() {
             .about-header {
               padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
               max-width: 100%;
+              position: relative;
+              overflow: hidden;
+            }
+
+            .about-header::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, transparent, #d32f2f, #ff6b6b, #d32f2f, transparent);
+              opacity: 0.6;
+              animation: scanBeam 7.5s ease-in-out infinite;
+              pointer-events: none;
+              top: 0;
+            }
+
+            @keyframes scanBeam {
+              0%   { top: 0%; opacity: 0; }
+              15%  { opacity: 0.6; }
+              85%  { opacity: 0.6; }
+              100% { top: 100%; opacity: 0; }
             }
 
             .about-back-btn {
@@ -839,7 +881,7 @@ export function AboutPage() {
               display: flex;
               align-items: center;
               gap: 0.75rem;
-              text-align: justify;
+              text-align: left;
             }
 
             .expertise-title::before {
@@ -866,7 +908,7 @@ export function AboutPage() {
               gap: 0.75rem;
               transition: all 0.3s ease;
               padding: 0.4rem 0;
-              text-align: justify;
+              text-align: left;
             }
 
             .expertise-category:hover .expertise-item {

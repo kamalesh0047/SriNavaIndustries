@@ -5,7 +5,10 @@ import bgVideo from "../../imports/make_this_animated__like_a_ovi.mp4";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const headlineLines = ["Building Excellence", "in Steel Since 1985"];
+const headlineLines = [
+  "Building Excellence",
+  "in Steel Since 1985"
+];
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -73,7 +76,7 @@ export function HomePage() {
         <h1
           className="leading-none mb-8 select-none"
           style={{
-            fontSize: "clamp(2.75rem, 6vw, 5.25rem)",
+            fontSize: "clamp(2rem, 5vw, 4.5rem)",
             fontWeight: 800,
             letterSpacing: "-0.025em",
             lineHeight: 1.04,
@@ -210,54 +213,6 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-      >
-        <span
-          className="text-white/40 uppercase"
-          style={{ fontSize: "0.6rem", letterSpacing: "0.2em" }}
-        >
-          Scroll
-        </span>
-        <motion.div
-          className="w-px h-10 bg-gradient-to-b from-amber-400/60 to-transparent"
-          animate={{ scaleY: [0.5, 1, 0.5], opacity: [0.4, 0.9, 0.4] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
-
-      {/* Stat bar */}
-      <motion.div
-        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-end gap-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.3 }}
-      >
-        {[
-          { value: "200+", label: "Projects" },
-          { value: "12", label: "Awards" },
-          { value: "40yr", label: "Experience" },
-        ].map(({ value, label }) => (
-          <div key={label} className="text-right">
-            <div
-              className="text-white"
-              style={{ fontSize: "1.5rem", fontWeight: 700, lineHeight: 1 }}
-            >
-              {value}
-            </div>
-            <div
-              className="text-white/40 uppercase mt-1"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.15em" }}
-            >
-              {label}
-            </div>
-          </div>
-        ))}
-      </motion.div>
-    </section>
+   </section>
   );
 }

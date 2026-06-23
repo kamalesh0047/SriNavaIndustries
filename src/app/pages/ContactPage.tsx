@@ -58,10 +58,10 @@ export function ContactPage() {
       link: "mailto:srinavaindustries@gmail.com",
     },
     {
-      icon: "🌐",
-      label: "Website",
-      value: "www.srinavaindustries.com",
-      link: "[srinavaindustries.com](https://www.srinavaindustries.com)",
+      icon: "📱",
+      label: "Instagram",
+      value: "@srinava_industries",
+      link: "https://www.instagram.com/srinava_industries",
     },
     {
       icon: "🏢",
@@ -74,7 +74,7 @@ export function ContactPage() {
   const stats = [
     { value: "15+", label: "Years of Service" },
     { value: "500+", label: "Projects Delivered" },
-    { value: "24/7", label: "Support Response" },
+    { value: "100+", label: "Companies Served" },
   ];
 
   return (
@@ -674,7 +674,7 @@ export function ContactPage() {
                     ) : item.link ? (
                       <a
                         href={item.link}
-                        target={item.label === "Website" ? "_blank" : undefined}
+                        target={item.label === "Instagram" ? "_blank" : undefined}
                         rel="noopener noreferrer"
                       >
                         {item.value}
