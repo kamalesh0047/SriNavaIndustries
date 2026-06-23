@@ -702,48 +702,6 @@ export function TeamPage() {
           </div>
         </div>
 
-        {/* ── Join Us CTA ── */}
-        <div className="cta-section">
-          <motion.div
-            className="cta-card"
-            initial={{ opacity: 0, y: 50, rotateX: 12 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-            >
-              Build Something Enduring
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-            >
-              We're always looking for skilled professionals who share our
-              passion for precision engineering and excellence. Join a team with
-              a legacy built since 1985.
-            </motion.p>
-            <motion.button
-              className="cta-btn"
-              onClick={() => navigate("/contact")}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.35 }}
-            >
-              Join Our Team →
-            </motion.button>
-          </motion.div>
-        </div>
       </div>
     </div>
   );
