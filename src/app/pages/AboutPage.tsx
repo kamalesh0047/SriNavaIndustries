@@ -1,6 +1,6 @@
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "motion/react";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 const cinemaStyles = `
 :root {
@@ -50,6 +50,17 @@ body {
   overflow: hidden;
   background:
     radial-gradient(140% 90% at 50% -10%, #141416 0%, var(--steel-950) 60%);
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+
+/* 3D camera rig — everything inside tilts with the mouse */
+.camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1);
 }
 
 /* Steel texture overlay */
@@ -61,6 +72,31 @@ body {
     repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 4px);
   opacity: 0.6;
   pointer-events: none;
+  z-index: 35;
+}
+
+/* Animated depth grid floor for 3D feel */
+.depth-grid {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  width: 200%;
+  height: 80%;
+  transform: translateX(-50%) rotateX(78deg);
+  transform-origin: center top;
+  background-image:
+    linear-gradient(rgba(225,29,46,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225,29,46,0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent 70%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent 70%);
+  animation: gridMove 6s linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
+@keyframes gridMove {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 0 60px, 0 0; }
 }
 
 /* Moving light streaks */
@@ -69,7 +105,7 @@ body {
   top: 0; left: -40%;
   width: 60%; height: 100%;
   background: linear-gradient(105deg, transparent, rgba(225,29,46,0.15), rgba(255,255,255,0.08), transparent);
-  transform: skewX(-18deg);
+  transform: skewX(-18deg) translateZ(40px);
   animation: sweep 9s linear infinite;
   pointer-events: none;
 }
@@ -80,7 +116,7 @@ body {
 }
 
 /* ============ SPARKS / PARTICLES ============ */
-.particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; transform-style: preserve-3d; }
 .spark {
   position: absolute;
   width: 3px; height: 3px;
@@ -110,9 +146,15 @@ body {
   padding: 0 24px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(.16,1,.3,1);
+  transform-style: preserve-3d;
+  transform: translateZ(-120px) rotateX(6deg) scale(1.05);
 }
-.scene.active { opacity: 1; pointer-events: auto; }
+.scene.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateZ(0) rotateX(0) scale(1);
+}
 
 /* Scene 1 specific left alignment */
 #scene1 {
@@ -151,12 +193,14 @@ body {
   font-weight: 400;
   letter-spacing: 0.4px;
   max-width: 560px;
+  text-align: justify;
+  transform: translateZ(20px);
 }
 
-/* reveal helpers */
+/* reveal helpers — now with 3D depth */
 @keyframes revealUp {
-  from { opacity: 0; transform: translateY(40px); filter: blur(8px); }
-  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  from { opacity: 0; transform: translateY(40px) translateZ(-60px) rotateX(-12deg); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0) translateZ(0) rotateX(0);    filter: blur(0); }
 }
 @keyframes fadeIn {
   from { opacity: 0; } to { opacity: 1; }
@@ -164,6 +208,10 @@ body {
 @keyframes shine {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
+}
+@keyframes float3d {
+  0%, 100% { transform: translateZ(60px) translateY(0); }
+  50%      { transform: translateZ(60px) translateY(-12px); }
 }
 
 /* ---- Scene 1 ---- */
@@ -178,16 +226,23 @@ body {
   color: #d32f2f;
   -webkit-background-clip: unset;
   background-clip: unset;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateZ(60px);
+  text-shadow: 0 0 30px rgba(225,29,46,0.45), 0 14px 40px rgba(0,0,0,0.6);
 }
 .scene.active .reveal-1 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) both; }
 .scene.active .reveal-2 { animation: revealUp var(--scene-dur) cubic-bezier(.16,1,.3,1) 0.25s both; }
 
 /* ---- Scene 2 ---- */
+#scene2 .zoom-in { transform-style: preserve-3d; }
 #scene2 .counter {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: clamp(2.6rem, 9vw, 7rem);
+  transform: translateZ(80px);
+  text-shadow: 0 20px 60px rgba(0,0,0,0.6);
 
   background: linear-gradient(
       110deg,
@@ -209,15 +264,16 @@ body {
   letter-spacing: 4px;
   color: var(--silver);
   margin-top: 4px;
+  transform: translateZ(40px);
 }
 .scene.active .zoom-in { animation: zoomFrame var(--scene-dur) cubic-bezier(.16,1,.3,1) both; }
 @keyframes zoomFrame {
-  from { opacity: 0; transform: scale(1.4); filter: blur(10px); }
-  to   { opacity: 1; transform: scale(1);   filter: blur(0); }
+  from { opacity: 0; transform: scale(1.4) translateZ(-200px) rotateX(15deg); filter: blur(10px); }
+  to   { opacity: 1; transform: scale(1) translateZ(0) rotateX(0);   filter: blur(0); }
 }
 
 /* ---- Scene 3 ---- */
-.values { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; align-items: center; }
+.values { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; align-items: center; transform-style: preserve-3d; }
 .value-word {
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
@@ -225,6 +281,7 @@ body {
   letter-spacing: 3px;
   padding: 0 28px;
   position: relative;
+  text-shadow: 0 12px 40px rgba(0,0,0,0.5);
 background: linear-gradient(
       110deg,
       #ff0000 0%,
@@ -245,9 +302,13 @@ background: linear-gradient(
   width: 1px; background: linear-gradient(var(--gold), transparent);
   box-shadow: 0 0 8px var(--gold);
 }
-.scene.active .v1 { animation: revealUp 0.7s cubic-bezier(.16,1,.3,1) 0.1s both, shine 3s linear 0.9s infinite; }
-.scene.active .v2 { animation: revealUp 0.7s cubic-bezier(.16,1,.3,1) 0.55s both, shine 3s linear 1.4s infinite; }
-.scene.active .v3 { animation: revealUp 0.7s cubic-bezier(.16,1,.3,1) 1.0s both, shine 3s linear 1.9s infinite; }
+@keyframes revealSpin {
+  from { opacity: 0; transform: translateY(40px) translateZ(-80px) rotateY(-45deg); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0) translateZ(0) rotateY(0);    filter: blur(0); }
+}
+.scene.active .v1 { animation: revealSpin 0.8s cubic-bezier(.16,1,.3,1) 0.1s both, shine 3s linear 0.9s infinite; }
+.scene.active .v2 { animation: revealSpin 0.8s cubic-bezier(.16,1,.3,1) 0.55s both, shine 3s linear 1.4s infinite; }
+.scene.active .v3 { animation: revealSpin 0.8s cubic-bezier(.16,1,.3,1) 1.0s both, shine 3s linear 1.9s infinite; }
 
 /* spark sweep transition */
 .spark-sweep {
@@ -274,6 +335,7 @@ background: linear-gradient(
   position: relative;
   display: inline-block;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 .logo-wrapper::after {
@@ -324,19 +386,26 @@ background: linear-gradient(
   letter-spacing: 6px;
   font-size: clamp(1.6rem, 6vw, 3.4rem);
   margin-top: 22px;
+  transform: translateZ(90px);
+  text-shadow: 0 0 40px rgba(225,29,46,0.5), 0 18px 50px rgba(0,0,0,0.7);
 }
 .brand-sub {
   margin-top: 14px;
   font-size: clamp(0.75rem, 2.4vw, 1rem);
   letter-spacing: 2px;
   color: var(--text-soft);
+  transform: translateZ(50px);
 }
 .scene.active .brand-logo { animation: logoEmerge 1.1s cubic-bezier(.16,1,.3,1) both; }
 @keyframes logoEmerge {
-  from { opacity: 0; transform: scale(0.5) rotate(-8deg); filter: blur(14px); }
-  to   { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
+  from { opacity: 0; transform: scale(0.5) rotate(-8deg) translateZ(-150px); filter: blur(14px); }
+  to   { opacity: 1; transform: scale(1) rotate(0) translateZ(0); filter: blur(0); }
 }
-.scene.active .brand-name { animation: revealUp 0.9s cubic-bezier(.16,1,.3,1) 0.5s both; }
+@keyframes brandEmerge3d {
+  from { opacity: 0; transform: translateZ(-200px) rotateX(-30deg) translateY(50px); filter: blur(12px); }
+  to   { opacity: 1; transform: translateZ(90px) rotateX(0) translateY(0); filter: blur(0); }
+}
+.scene.active .brand-name { animation: brandEmerge3d 1s cubic-bezier(.16,1,.3,1) 0.4s both, float3d 5s ease-in-out 1.5s infinite; }
 .scene.active .brand-sub  { animation: revealUp 0.9s cubic-bezier(.16,1,.3,1) 0.75s both; }
 .scene.active .cta        { animation: fadeIn 0.9s ease 1.1s both; }
 
@@ -360,9 +429,10 @@ background: linear-gradient(
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transform: translateZ(40px);
 }
 .cta:hover {
-  transform: translateY(-3px);
+  transform: translateZ(40px) translateY(-3px);
   border-color: var(--gold-bright);
   box-shadow: 0 12px 40px rgba(255,100,100,0.25), inset 0 1px 0 rgba(255,255,255,0.18);
 }
@@ -382,8 +452,9 @@ background: linear-gradient(
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .scene { opacity: 0; }
+  .scene { opacity: 0; transform: none; }
   #scene4 { opacity: 1; pointer-events: auto; }
+  .camera { transform: none !important; }
 }
 `;
 
@@ -398,11 +469,72 @@ const PORTFOLIO_IMAGES = [
   "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2F8102b150f4c14c8099e4f53ec000ee28?format=webp&width=800&height=1200",
 ];
 
+/* 3D tilt card — wraps any content and tilts toward the cursor */
+function TiltCard({
+  children,
+  className,
+  intensity = 10,
+  ...rest
+}: {
+  children: React.ReactNode;
+  className?: string;
+  intensity?: number;
+  [key: string]: any;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 200, damping: 18 });
+  const sry = useSpring(ry, { stiffness: 200, damping: 18 });
+
+  const handleMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      ry.set(px * intensity);
+      rx.set(-py * intensity);
+    },
+    [intensity, rx, ry]
+  );
+
+  const reset = useCallback(() => {
+    rx.set(0);
+    ry.set(0);
+  }, [rx, ry]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      onMouseMove={handleMove}
+      onMouseLeave={reset}
+      style={{
+        rotateX: srx,
+        rotateY: sry,
+        transformStyle: "preserve-3d",
+        transformPerspective: 900,
+      }}
+      {...rest}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export function AboutPage() {
   const navigate = useNavigate();
   const [introComplete, setIntroComplete] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Page-level scroll parallax for the main content
+  const pageRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: pageRef });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const headerScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.94]);
 
   useEffect(() => {
     (function () {
@@ -418,9 +550,25 @@ export function AboutPage() {
           s.style.animationDuration = (5 + Math.random() * 7) + "s";
           s.style.animationDelay = (Math.random() * 8) + "s";
           var scale = 0.6 + Math.random() * 1.8;
-          s.style.transform = "scale(" + scale + ")";
+          var depth = -120 + Math.random() * 240;
+          s.style.transform = "scale(" + scale + ") translateZ(" + depth + "px)";
           pc.appendChild(s);
         }
+      }
+
+      /* ---- mouse-driven 3D camera tilt on the hero ---- */
+      var hero = document.getElementById("hero");
+      var camera = document.getElementById("camera");
+      var onMouse: ((e: MouseEvent) => void) | null = null;
+      if (hero && camera && !reduced) {
+        onMouse = function (e: MouseEvent) {
+          var rect = hero!.getBoundingClientRect();
+          var px = (e.clientX - rect.left) / rect.width - 0.5;
+          var py = (e.clientY - rect.top) / rect.height - 0.5;
+          camera!.style.transform =
+            "rotateY(" + px * 10 + "deg) rotateX(" + -py * 8 + "deg)";
+        };
+        hero.addEventListener("mousemove", onMouse);
       }
 
       var scenes = ["scene1", "scene2", "scene3", "scene4"];
@@ -497,6 +645,11 @@ export function AboutPage() {
         skip.addEventListener("click", finish);
       }
       play();
+
+      return function cleanup() {
+        clearAll();
+        if (hero && onMouse) hero.removeEventListener("mousemove", onMouse);
+      };
     })();
   }, []);
 
@@ -506,40 +659,43 @@ export function AboutPage() {
 
       {!introComplete && (
         <section className="hero" id="hero" aria-label="Sri Nava Industries cinematic intro">
-          <div className="light-streak"></div>
-          <div className="light-streak delay"></div>
-          <div className="particles" id="particles" aria-hidden="true"></div>
+          <div className="camera" id="camera">
+            <div className="depth-grid" aria-hidden="true"></div>
+            <div className="light-streak"></div>
+            <div className="light-streak delay"></div>
+            <div className="particles" id="particles" aria-hidden="true"></div>
 
-          {/* Scene 1 — Experience */}
-          <div className="scene" id="scene1">
-            <h1 className="metallic big reveal-1">41 YEARS OF EXPERIENCE</h1>
-            <p className="subtitle reveal-2">Delivering excellence in fabrication and engineering since 1985.</p>
-          </div>
-
-          {/* Scene 2 — Projects */}
-          <div className="scene" id="scene2">
-            <div className="zoom-in">
-              <div className="counter"><span id="count">0</span>+</div>
-              <div className="label">PROJECTS COMPLETED</div>
-              <p className="subtitle">Trusted by industries across multiple sectors.</p>
+            {/* Scene 1 — Experience */}
+            <div className="scene" id="scene1">
+              <h1 className="metallic big reveal-1">41 YEARS OF EXPERIENCE</h1>
+              <p className="subtitle reveal-2">Delivering excellence in fabrication and engineering since 1985.</p>
             </div>
-          </div>
 
-          {/* Scene 3 — Core Values */}
-          <div className="scene" id="scene3">
-            <div className="values">
-              <span className="value-word v1">PRECISION</span>
-              <span className="value-word v2">QUALITY</span>
-              <span className="value-word v3">RELIABILITY</span>
+            {/* Scene 2 — Projects */}
+            <div className="scene" id="scene2">
+              <div className="zoom-in">
+                <div className="counter"><span id="count">0</span>+</div>
+                <div className="label">PROJECTS COMPLETED</div>
+                <p className="subtitle">Trusted by industries across multiple sectors.</p>
+              </div>
             </div>
-          </div>
 
-          {/* Scene 4 — Brand Reveal */}
-          <div className="scene" id="scene4">
-            <div className="logo-wrapper">
-              <h2 className="brand-name metallic">SRI NAVA INDUSTRIES</h2>
+            {/* Scene 3 — Core Values */}
+            <div className="scene" id="scene3">
+              <div className="values">
+                <span className="value-word v1">PRECISION</span>
+                <span className="value-word v2">QUALITY</span>
+                <span className="value-word v3">RELIABILITY</span>
+              </div>
             </div>
-            <p className="brand-sub">WELDING • FABRICATION • LASER CUTTING • STRUCTURAL WORKS</p>
+
+            {/* Scene 4 — Brand Reveal */}
+            <div className="scene" id="scene4">
+              <div className="logo-wrapper">
+                <h2 className="brand-name metallic">SRI NAVA INDUSTRIES</h2>
+              </div>
+              <p className="brand-sub">WELDING • FABRICATION • LASER CUTTING • STRUCTURAL WORKS</p>
+            </div>
           </div>
 
           <div className="spark-sweep" id="sweep"></div>
@@ -548,18 +704,34 @@ export function AboutPage() {
       )}
 
       {introComplete && (
-        <div className="about-page-container">
+        <div className="about-page-container" ref={pageRef}>
           <style>{`
             .about-page-container {
               background: var(--steel-dark);
               color: white;
+              position: relative;
+              perspective: 1600px;
             }
+
+            .ambient-bg {
+              position: fixed;
+              inset: -20% 0;
+              z-index: 0;
+              pointer-events: none;
+              background:
+                radial-gradient(60% 50% at 15% 10%, rgba(225,29,46,0.12) 0%, transparent 60%),
+                radial-gradient(50% 50% at 85% 60%, rgba(225,29,46,0.10) 0%, transparent 60%);
+              will-change: transform;
+            }
+
+            .about-page-container > *:not(.ambient-bg) { position: relative; z-index: 1; }
 
             .about-header {
               padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
               max-width: 100%;
               position: relative;
               overflow: hidden;
+              transform-style: preserve-3d;
             }
 
             .about-header::before {
@@ -616,6 +788,7 @@ export function AboutPage() {
               background-clip: text;
               -webkit-text-fill-color: transparent;
               text-align: justify;
+              text-shadow: 0 20px 60px rgba(225,29,46,0.18);
             }
 
             .about-subtitle {
@@ -633,7 +806,9 @@ export function AboutPage() {
               border: 1px solid var(--line);
               border-radius: 12px;
               margin: 1.5rem 0;
-              transition: all 0.3s ease;
+              transition: all 0.4s cubic-bezier(.16,1,.3,1);
+              transform-style: preserve-3d;
+              will-change: transform;
             }
 
             .about-content-section::before {
@@ -650,6 +825,7 @@ export function AboutPage() {
             .about-content-section:hover {
               border-color: var(--crimson-soft);
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.1) 0%, rgba(13, 14, 17, 0.4) 100%);
+              box-shadow: 0 30px 80px -30px rgba(225,29,46,0.35);
             }
 
             .about-content-section:hover::before {
@@ -703,6 +879,7 @@ export function AboutPage() {
               align-items: center;
               gap: 1rem;
               text-align: justify;
+              transform: translateZ(30px);
             }
 
             .section-title::before {
@@ -745,6 +922,7 @@ export function AboutPage() {
               gap: 1.5rem;
               max-width: 1200px;
               position: relative;
+              transform-style: preserve-3d;
             }
 
             .industries-grid::before {
@@ -770,6 +948,7 @@ export function AboutPage() {
               align-items: center;
               display: flex;
               gap: 1rem;
+              transform-style: preserve-3d;
             }
 
             .industry-card::before {
@@ -787,12 +966,14 @@ export function AboutPage() {
             .industry-card:hover {
               border-color: var(--crimson-soft);
               background: rgba(225, 29, 46, 0.06);
-              box-shadow: 0 0 20px rgba(225, 29, 46, 0.15);
+              box-shadow: 0 0 20px rgba(225, 29, 46, 0.15), 0 20px 50px -20px rgba(225,29,46,0.4);
             }
 
             .industry-card:hover::before {
               opacity: 1;
             }
+
+            .industry-card > div { transform: translateZ(25px); }
 
             .industry-icon {
               font-size: 1.2rem;
@@ -804,8 +985,7 @@ export function AboutPage() {
               font-size: 0.95rem;
               line-height: 1.6;
               color: rgba(255, 255, 255, 0.75);
-              text-align: left !important;
-              text justify: none;
+              text-align: justify;
             }
 
             .expertise-section {
@@ -815,6 +995,7 @@ export function AboutPage() {
               max-width: 1200px;
               position: relative;
               padding: 0.5rem 0;
+              transform-style: preserve-3d;
             }
 
             .expertise-section::before {
@@ -833,9 +1014,10 @@ export function AboutPage() {
               border: 1px solid var(--crimson-soft);
               border-radius: 8px;
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.12) 0%, rgba(13, 14, 17, 0.6) 100%);
-              transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+              transition: box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
               position: relative;
               overflow: hidden;
+              transform-style: preserve-3d;
             }
 
             .expertise-category::before {
@@ -863,8 +1045,7 @@ export function AboutPage() {
             .expertise-category:hover {
               border-color: var(--crimson-bright);
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.22) 0%, rgba(13, 14, 17, 0.7) 100%);
-              transform: translateY(-6px) translateX(2px);
-              box-shadow: 0 0 30px rgba(225, 29, 46, 0.3), 0 16px 50px rgba(225, 29, 46, 0.25);
+              box-shadow: 0 0 30px rgba(225, 29, 46, 0.3), 0 30px 70px -25px rgba(225, 29, 46, 0.5);
             }
 
             .expertise-title {
@@ -882,6 +1063,7 @@ export function AboutPage() {
               align-items: center;
               gap: 0.75rem;
               text-align: left;
+              transform: translateZ(35px);
             }
 
             .expertise-title::before {
@@ -897,6 +1079,7 @@ export function AboutPage() {
               gap: 0.9rem;
               position: relative;
               z-index: 1;
+              transform: translateZ(20px);
             }
 
             .expertise-item {
@@ -908,7 +1091,7 @@ export function AboutPage() {
               gap: 0.75rem;
               transition: all 0.3s ease;
               padding: 0.4rem 0;
-              text-align: left;
+              text-align: justify;
             }
 
             .expertise-category:hover .expertise-item {
@@ -942,6 +1125,7 @@ export function AboutPage() {
               gap: 1rem;
               max-width: 900px;
               position: relative;
+              transform-style: preserve-3d;
             }
 
             .clients-grid::before {
@@ -961,10 +1145,11 @@ export function AboutPage() {
               border-radius: 8px;
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.1) 0%, rgba(13, 14, 17, 0.3) 100%);
               text-align: center;
-              transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+              transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
               cursor: default;
               position: relative;
               overflow: hidden;
+              transform-style: preserve-3d;
             }
 
             .client-card::before {
@@ -982,8 +1167,7 @@ export function AboutPage() {
             .client-card:hover {
               border-color: var(--crimson-bright);
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.18) 0%, rgba(13, 14, 17, 0.4) 100%);
-              transform: translateY(-4px);
-              box-shadow: 0 0 25px rgba(225, 29, 46, 0.3), 0 8px 20px rgba(225, 29, 46, 0.2);
+              box-shadow: 0 0 25px rgba(225, 29, 46, 0.3), 0 20px 45px -18px rgba(225, 29, 46, 0.5);
             }
 
             .client-card:hover::before {
@@ -1001,6 +1185,7 @@ export function AboutPage() {
               position: relative;
               z-index: 1;
               text-align: center;
+              transform: translateZ(25px);
             }
 
             .cta-section {
@@ -1072,7 +1257,9 @@ export function AboutPage() {
             }
           `}</style>
 
-          <div className="about-header">
+          <motion.div className="ambient-bg" style={{ y: bgY }} aria-hidden="true" />
+
+          <motion.div className="about-header" style={{ scale: headerScale }}>
             <motion.button
               onClick={() => navigate("/")}
               className="about-back-btn"
@@ -1084,23 +1271,26 @@ export function AboutPage() {
             </motion.button>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 40, rotateX: -20 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformStyle: "preserve-3d", transformPerspective: 1000 }}
             >
               <h1 className="about-title">About Sri Nava Industries</h1>
               <p className="about-subtitle">
                 A Legacy of Excellence in Fabrication, Engineering, and Industrial Solutions
               </p>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* Company History */}
-          <motion.div
+          <TiltCard
             className="about-content-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            intensity={5}
+            initial={{ opacity: 0, y: 60, rotateX: -10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="history-text">
               <p className="history-paragraph">
@@ -1111,14 +1301,16 @@ export function AboutPage() {
                 Renowned for its expertise in 2 mm and 3 mm plate fabrication, Sri Nava Industries has grown into a trusted partner for fabrication, engineering, and manufacturing services. At its peak, the organization employed over 150 skilled professionals, contributing to its legacy of excellence, innovation, and commitment to industrial growth.
               </p>
             </div>
-          </motion.div>
+          </TiltCard>
 
           {/* Industries Served */}
-          <motion.div
+          <TiltCard
             className="about-content-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            intensity={4}
+            initial={{ opacity: 0, y: 60, rotateX: -10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="section-title">Industries We Serve</h2>
 
@@ -1136,36 +1328,32 @@ export function AboutPage() {
                 <motion.div
                   key={industry}
                   className="industry-card"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.4 + i * 0.05 }}
-                  whileHover={{ y: -2 }}
+                  initial={{ opacity: 0, y: 30, rotateY: -15 }}
+                  whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -6, z: 40, transition: { duration: 0.25 } }}
+                  style={{ transformStyle: "preserve-3d" }}
                 >
                   <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", width: "100%" }}>
                     <span className="industry-icon">◆</span>
-                    <p
-  className="industry-name"
-  style={{
-    textAlign:
-      industry === "Heavy Engineering & Fabrication"
-        ? "left"
-        : "justify",
-  }}
->
-  {industry}
-</p>
+                    <p className="industry-name" style={{ textAlign: "justify" }}>
+                      {industry}
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </TiltCard>
 
           {/* Core Expertise */}
-          <motion.div
+          <TiltCard
             className="about-content-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            intensity={4}
+            initial={{ opacity: 0, y: 60, rotateX: -10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="section-title">Core Expertise & Specializations</h2>
 
@@ -1214,9 +1402,12 @@ export function AboutPage() {
                 <motion.div
                   key={expertise.title}
                   className="expertise-category"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + idx * 0.1 }}
+                  initial={{ opacity: 0, x: -40, rotateY: 20 }}
+                  whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -8, z: 50, rotateX: 3, transition: { duration: 0.3 } }}
+                  style={{ transformStyle: "preserve-3d", transformPerspective: 900 }}
                 >
                   <h3 className="expertise-title">{expertise.title}</h3>
                   <ul className="expertise-list">
@@ -1229,14 +1420,16 @@ export function AboutPage() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </TiltCard>
 
           {/* Major Clients */}
-          <motion.div
+          <TiltCard
             className="about-content-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            intensity={4}
+            initial={{ opacity: 0, y: 60, rotateX: -10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="section-title">Major Clients & Business Associates</h2>
 
@@ -1249,10 +1442,12 @@ export function AboutPage() {
                 <motion.div
                   key={client}
                   className="client-card"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.6 + i * 0.08 }}
-                  whileHover={{ y: -4 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: [0.34, 1.56, 0.64, 1] }}
+                  whileHover={{ y: -8, z: 50, rotateX: 6, transition: { duration: 0.3 } }}
+                  style={{ transformStyle: "preserve-3d", transformPerspective: 800 }}
                 >
                   <p className="client-name">{client}</p>
                 </motion.div>
@@ -1262,7 +1457,7 @@ export function AboutPage() {
             <p style={{ fontSize: "0.9rem", color: "rgba(255, 255, 255, 0.5)", marginTop: "1.5rem" }}>
               Plus various Engineering Contractors and Industrial Suppliers
             </p>
-          </motion.div>
+          </TiltCard>
 
           {/* Gallery Modal */}
           {galleryOpen && (
@@ -1279,6 +1474,7 @@ export function AboutPage() {
                   z-index: 1000;
                   padding: 1rem;
                   animation: fadeIn 0.3s ease-out;
+                  perspective: 1500px;
                 }
 
                 @keyframes fadeIn {
@@ -1297,17 +1493,17 @@ export function AboutPage() {
                   border: 1px solid rgba(231, 76, 60, 0.2);
                   border-radius: 12px;
                   overflow: hidden;
-                  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 @keyframes slideUp {
                   from {
                     opacity: 0;
-                    transform: translateY(30px);
+                    transform: translateY(40px) rotateX(-12deg) scale(0.95);
                   }
                   to {
                     opacity: 1;
-                    transform: translateY(0);
+                    transform: translateY(0) rotateX(0) scale(1);
                   }
                 }
 
@@ -1326,17 +1522,17 @@ export function AboutPage() {
                   max-width: 100%;
                   max-height: 100%;
                   object-fit: contain;
-                  animation: zoomIn 0.4s ease-out;
+                  animation: zoomIn 0.5s ease-out;
                 }
 
                 @keyframes zoomIn {
                   from {
                     opacity: 0;
-                    transform: scale(0.95);
+                    transform: scale(0.92) rotateY(8deg);
                   }
                   to {
                     opacity: 1;
-                    transform: scale(1);
+                    transform: scale(1) rotateY(0);
                   }
                 }
 
@@ -1406,7 +1602,7 @@ export function AboutPage() {
 
                 .gallery-thumbnail:hover {
                   border-color: rgba(231, 76, 60, 0.5);
-                  transform: scale(1.05);
+                  transform: scale(1.05) translateY(-2px);
                 }
 
                 .gallery-thumbnail.active {
@@ -1479,6 +1675,7 @@ export function AboutPage() {
                     src={PORTFOLIO_IMAGES[currentImageIndex]}
                     alt={`Portfolio item ${currentImageIndex + 1}`}
                     className="gallery-image"
+                    key={currentImageIndex}
                   />
                 </div>
 
