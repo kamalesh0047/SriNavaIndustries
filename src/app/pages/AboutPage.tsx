@@ -158,12 +158,19 @@ body {
 
 /* Scene 1 specific left alignment */
 #scene1 {
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding-left: clamp(1.5rem, 5vw, 3rem);
+  padding-left: 0;
+  width: 100%;
+  text-align: center;
 }
 #scene1 .big {
-  text-align: left;
+  text-align: center;
+  width: 100%;
+}
+  #scene1 .subtitle {
+  width: 100%;
+  text-align: center;
 }
 
 /* shared metallic headline */
@@ -193,7 +200,7 @@ body {
   font-weight: 400;
   letter-spacing: 0.4px;
   max-width: 560px;
-  text-align: justify;
+  text-align: center;
   transform: translateZ(20px);
 }
 
@@ -945,8 +952,9 @@ export function AboutPage() {
               cursor: default;
               position: relative;
               overflow: hidden;
-              align-items: center;
+              align-items: flex-start;
               display: flex;
+              text-align: left
               gap: 1rem;
               transform-style: preserve-3d;
             }
@@ -1337,7 +1345,7 @@ export function AboutPage() {
                 >
                   <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", width: "100%" }}>
                     <span className="industry-icon">◆</span>
-                    <p className="industry-name" style={{ textAlign: "justify" }}>
+                    <p className="industry-name" style={{ textAlign: "left" }}>
                       {industry}
                     </p>
                   </div>

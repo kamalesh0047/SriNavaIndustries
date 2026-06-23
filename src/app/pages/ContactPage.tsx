@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-
+import emailjs from "@emailjs/browser";
 export function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -20,14 +20,43 @@ export function ContactPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+  "service_qs8mjd9",
+  "template_q8rs4lj",
+      {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        subject: formData.subject,
+        message: formData.message,
+      },
+      "fi9MuelPCcYaMrZnI"
+    );
+
     setSubmitted(true);
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      subject: "",
+      message: "",
+    });
+
     setTimeout(() => {
-      setFormData({ name: "", email: "", phone: "", company: "", subject: "", message: "" });
       setSubmitted(false);
     }, 3000);
-  };
+  } catch (error) {
+  console.error("EmailJS Error:", error);
+  alert("Check console (F12) for EmailJS error");
+}
+};
 
   const requiredFilled =
     formData.name.trim() &&
@@ -72,8 +101,8 @@ export function ContactPage() {
   ];
 
   const stats = [
-    { value: "15+", label: "Years of Service" },
-    { value: "500+", label: "Projects Delivered" },
+    { value: "41+", label: "Years of Service" },
+    { value: "10K+", label: "Projects Delivered" },
     { value: "100+", label: "Companies Served" },
   ];
 

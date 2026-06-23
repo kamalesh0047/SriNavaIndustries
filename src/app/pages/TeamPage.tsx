@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 
 const teamMembers = [
   {
@@ -47,7 +47,7 @@ const teamMembers = [
 
 const stats = [
   { value: "1985", label: "Established" },
-  { value: "40+", label: "Years Legacy" },
+  { value: "41+", label: "Years Legacy" },
   { value: "9+", label: "Professionals" },
   { value: "100%", label: "Precision" },
 ];
