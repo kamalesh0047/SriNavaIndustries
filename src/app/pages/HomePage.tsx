@@ -213,35 +213,6 @@ export function HomePage() {
         </motion.div>
       </div>
 
-      {/* Stat bar */}
-      <motion.div
-        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-stretch gap-10 flex-wrap overflow-auto justify-start"
-        style={{ marginBottom: "179px" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.3 }}
-      >
-        {[
-          { value: "200+", label: "Projects" },
-          { value: "12", label: "Awards" },
-          { value: "40yr", label: "Experience" },
-        ].map(({ value, label }) => (
-          <div key={label} className="text-right">
-            <div
-              className="text-white"
-              style={{ fontSize: "1.5rem", fontWeight: 700, lineHeight: 1 }}
-            >
-              {value}
-            </div>
-            <div
-              className="text-white/40 uppercase mt-1"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.15em" }}
-            >
-              {label}
-            </div>
-          </div>
-        ))}
-      </motion.div>
-    </section>
+   </section>
   );
 }
