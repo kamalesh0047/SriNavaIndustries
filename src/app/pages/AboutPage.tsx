@@ -1294,7 +1294,7 @@ export function AboutPage() {
   .history-paragraph,
   .industry-name,
   .expertise-item {
-    text-align: left;
+  text-justify: inter-word;
   }
 }
           `}</style>
