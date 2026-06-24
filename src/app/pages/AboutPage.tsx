@@ -794,7 +794,7 @@ export function AboutPage() {
               -webkit-background-clip: text;
               background-clip: text;
               -webkit-text-fill-color: transparent;
-              text-align: justify;
+              text-align: center;
               text-shadow: 0 20px 60px rgba(225,29,46,0.18);
             }
 
@@ -803,7 +803,7 @@ export function AboutPage() {
               color: rgba(255, 255, 255, 0.6);
               line-height: 1.6;
               max-width: 600px;
-              text-align: justify;
+              text-align: center;
             }
 
             .about-content-section {
@@ -885,7 +885,7 @@ export function AboutPage() {
               display: flex;
               align-items: center;
               gap: 1rem;
-              text-align: justify;
+              text-align: center;
               transform: translateZ(30px);
             }
 
@@ -909,7 +909,7 @@ export function AboutPage() {
               color: rgba(255, 255, 255, 0.75);
               position: relative;
               padding-left: 1.5rem;
-              text-align: justify;
+              text-align: center;
             }
 
             .history-paragraph::before {
@@ -993,7 +993,7 @@ export function AboutPage() {
               font-size: 0.95rem;
               line-height: 1.6;
               color: rgba(255, 255, 255, 0.75);
-              text-align: justify;
+              text-align: center;
             }
 
             .expertise-section {
@@ -1099,7 +1099,7 @@ export function AboutPage() {
               gap: 0.75rem;
               transition: all 0.3s ease;
               padding: 0.4rem 0;
-              text-align: justify;
+              text-align: center;
             }
 
             .expertise-category:hover .expertise-item {
@@ -1198,7 +1198,7 @@ export function AboutPage() {
 
             .cta-section {
               padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 3rem);
-              text-align: justify;
+              text-align: center;
               border-top: 1px solid var(--crimson-soft);
               position: relative;
               background: linear-gradient(135deg, rgba(225, 29, 46, 0.08) 0%, rgba(13, 14, 17, 0.3) 100%);
@@ -1255,14 +1255,37 @@ export function AboutPage() {
             }
 
             @media (max-width: 768px) {
-              .industries-grid {
-                grid-template-columns: 1fr;
-              }
+  .industries-grid {
+    grid-template-columns: 1fr;
+  }
 
-              .clients-grid {
-                grid-template-columns: repeat(2, 1fr);
-              }
-            }
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .value-word {
+    padding: 0;
+    font-size: 1.8rem;
+  }
+
+  .value-word + .value-word::before {
+    display: none;
+  }
+
+  .about-title,
+  .about-subtitle,
+  .section-title,
+  .history-paragraph,
+  .industry-name,
+  .expertise-item {
+    text-align: center;
+  }
+}
           `}</style>
 
           <motion.div className="ambient-bg" style={{ y: bgY }} aria-hidden="true" />
