@@ -145,13 +145,20 @@ body {
   text-align: center;
   padding: 0 24px;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity 0.6s ease, transform 0.8s cubic-bezier(.16,1,.3,1);
   transform-style: preserve-3d;
   transform: translateZ(-120px) rotateX(6deg) scale(1.05);
 }
 .scene.active {
+#scene2,
+#scene3,
+#scene4 {
+  display: none;
+}
   opacity: 1;
+    visibility: visible;
   pointer-events: auto;
   transform: translateZ(0) rotateX(0) scale(1);
 }

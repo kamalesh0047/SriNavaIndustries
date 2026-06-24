@@ -278,12 +278,21 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
     }
 
     function show(idx: number) {
-      scenes.forEach((id) => {
-        const el = document.getElementById(id);
-        el?.classList.remove("active");
-      });
-      document.getElementById(scenes[idx])?.classList.add("active");
+  scenes.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.remove("active");
+      el.style.display = "none";
     }
+  });
+
+  const active = document.getElementById(scenes[idx]);
+
+  if (active) {
+    active.style.display = "flex";
+    active.classList.add("active");
+  }
+}
 
     function runSweep() {
       sweep!.classList.remove("run");
