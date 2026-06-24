@@ -904,20 +904,24 @@ export function AboutPage() {
               border-radius: 2px;
             }
 
-            .history-text {
-              max-width: 800px;
-              display: grid;
-              gap: 1.5rem;
-            }
+         .history-text {
+  max-width: 900px;
+  margin-left: 0;
+  margin-right: auto;
+  display: grid;
+  gap: 1.5rem;
+  text-align: left;
+}
 
-            .history-paragraph {
-              font-size: 1.05rem;
-              line-height: 1.8;
-              color: rgba(255, 255, 255, 0.75);
-              position: relative;
-              padding-left: 1.5rem;
-              text-align: center;
-            }
+           .history-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.75);
+  position: relative;
+  padding-left: 1.5rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
 
             .history-paragraph::before {
               content: '';
@@ -1290,7 +1294,7 @@ export function AboutPage() {
   .history-paragraph,
   .industry-name,
   .expertise-item {
-    text-align: center;
+    text-align: left;
   }
 }
           `}</style>
