@@ -35,14 +35,6 @@ const teamMembers = [
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2Faeabf3660714467494ceeb8be96b8f10?format=webp&width=800&height=1200",
   },
-  {
-    name: "Kamalesh S",
-    role: "Accounts & Information Technology",
-    expertise: "Finance & IT Systems",
-    bio: "Manages financial operations, IT infrastructure, and systems to support business growth and data security.",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2Fd804a884d1294eac9363b52e819be07b%2Fee07453fcebd435c9d7aa1bcd637d990?format=webp&width=800&height=1200",
-  },
 ];
 
 const stats = [
